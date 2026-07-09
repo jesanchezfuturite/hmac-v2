@@ -36,6 +36,9 @@ export default function Header() {
           <Link href="/maternidad" className="relative py-1 text-mac-primary font-medium hover:text-mac-primary-dark transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary-dark after:transition-all after:duration-300 hover:after:w-full">
             Maternidad
           </Link>
+          <Link href="/blog" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
+            Blog
+          </Link>
         </nav>
 
         {/* CTAs & Hamburger Toggle */}
@@ -100,14 +103,21 @@ export default function Header() {
           >
             Servicios
           </Link>
-          <Link 
-            href="/maternidad" 
+          <Link
+            href="/maternidad"
             className="py-2.5 text-mac-primary hover:text-mac-primary-dark transition-colors"
             onClick={() => setIsOpen(false)}
           >
             Maternidad
           </Link>
-          
+          <Link
+            href="/blog"
+            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            Blog
+          </Link>
+
           {/* Mobile-only CTA */}
           <Link
             href="/directorio-medico"

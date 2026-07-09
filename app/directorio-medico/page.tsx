@@ -5,23 +5,32 @@ import { useSearchParams } from "next/navigation";
 import { Stethoscope, MapPin, Search, Filter } from "lucide-react";
 import DoctorCard, { Doctor } from "@/components/shared/DoctorCard";
 
-// Mock Doctors Data
+// Mock Doctors Data — datos de ejemplo; pendientes datos reales del cliente
 const MOCK_DOCTORS: Doctor[] = [
   {
     id: "1",
     name: "Dr. Alejandro Gómez Estrada",
     specialty: "Ginecología",
+    subspecialty: "Medicina materno-fetal",
     hospital: "Hospital MAC Celaya",
     initials: "AG",
     cedula: "GP-9831720",
+    office: "204",
+    officePhone: "461 618 0820",
+    bio: "Especialista en embarazos de alto riesgo con más de 15 años de experiencia en la atención materno-fetal.",
+    priorityTopics: ["Embarazo de alto riesgo", "Control prenatal", "Cirugía ginecológica"],
   },
   {
     id: "2",
     name: "Dra. Sofía Ramírez Nieto",
     specialty: "Pediatría",
+    subspecialty: "Neonatología",
     hospital: "Hospital MAC CDMX",
     initials: "SR",
     cedula: "PE-8712390",
+    office: "112",
+    officePhone: "55 1234 5678",
+    priorityTopics: ["Recién nacido", "Control del niño sano", "Vacunación"],
   },
   {
     id: "3",
@@ -30,6 +39,9 @@ const MOCK_DOCTORS: Doctor[] = [
     hospital: "Hospital MAC Guadalajara",
     initials: "CM",
     cedula: "CA-7832611",
+    office: "308",
+    officePhone: "33 8765 4321",
+    bio: "Cardiólogo clínico enfocado en prevención y manejo de hipertensión y cardiopatía isquémica.",
   },
   {
     id: "4",
@@ -38,6 +50,8 @@ const MOCK_DOCTORS: Doctor[] = [
     hospital: "Hospital MAC Aguascalientes",
     initials: "LH",
     cedula: "IM-6251439",
+    office: "015",
+    officePhone: "449 123 4590",
   },
   {
     id: "5",
@@ -46,14 +60,20 @@ const MOCK_DOCTORS: Doctor[] = [
     hospital: "Hospital MAC Celaya",
     initials: "JP",
     cedula: "GP-5421764",
+    office: "206",
+    officePhone: "461 618 0821",
+    priorityTopics: ["Colposcopía", "Menopausia"],
   },
   {
     id: "6",
     name: "Dra. Elena Ruiz Valadéz",
     specialty: "Cardiología",
+    subspecialty: "Ecocardiografía",
     hospital: "Hospital MAC Celaya",
     initials: "ER",
     cedula: "CA-9182374",
+    office: "310",
+    officePhone: "461 618 0822",
   },
 ];
 
@@ -114,10 +134,6 @@ function DirectorioMedicoContent() {
       return matchName && matchSpecialty && matchHospital;
     });
   }, [searchTerm, selectedSpecialty, selectedHospital]);
-
-  const handleBooking = (doctor: Doctor) => {
-    alert(`Cita solicitada con ${doctor.name} (${doctor.specialty}) en ${doctor.hospital}. Nos comunicaremos contigo a la brevedad.`);
-  };
 
   return (
     <div className="w-full bg-gray-50 py-10 px-4 min-h-[60vh]">
@@ -230,7 +246,6 @@ function DirectorioMedicoContent() {
               <DoctorCard
                 key={doctor.id}
                 doctor={doctor}
-                onBook={handleBooking}
               />
             ))}
           </div>

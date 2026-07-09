@@ -67,7 +67,7 @@ export default function HospitalMap() {
   const activeBranch = branches.find(b => b.id === activeBranchId) || branches[1];
 
   return (
-    <section className="bg-white py-16 px-4 border-b border-gray-150">
+    <section id="hospitales" className="bg-white py-16 px-4 border-b border-gray-150 scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         
         {/* Header Row */}

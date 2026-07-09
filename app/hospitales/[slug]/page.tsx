@@ -1,13 +1,19 @@
 "use client";
 
 import React, { use } from "react";
-import { MapPin, Phone, Compass, HeartPulse, ShieldCheck, Activity, Brain, ShieldAlert, Calendar } from "lucide-react";
+import { MapPin, Phone, Compass, HeartPulse, Activity, Brain, ShieldAlert, Coffee, Wifi, Accessibility, Utensils, Car } from "lucide-react";
 import DoctorCard, { Doctor } from "@/components/shared/DoctorCard";
 import CTAButton from "@/components/shared/CTAButton";
+import HospitalGallery from "@/components/hospital/HospitalGallery";
+import HospitalComplementaryServices from "@/components/hospital/HospitalComplementaryServices";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+// Número oficial de Call Center (canal de comunicación único)
+const CALL_CENTER_DISPLAY = "800 622 0800";
+const CALL_CENTER_TEL = "8006220800";
 
 // Mock doctors specifically for Celaya (4 doctors)
 const LOCAL_DOCTORS: Doctor[] = [
@@ -15,9 +21,12 @@ const LOCAL_DOCTORS: Doctor[] = [
     id: "1",
     name: "Dr. Alejandro Gómez Estrada",
     specialty: "Ginecología",
+    subspecialty: "Medicina materno-fetal",
     hospital: "Hospital MAC Celaya",
     initials: "AG",
     cedula: "GP-9831720",
+    office: "204",
+    officePhone: "461 618 0820",
   },
   {
     id: "5",
@@ -26,14 +35,19 @@ const LOCAL_DOCTORS: Doctor[] = [
     hospital: "Hospital MAC Celaya",
     initials: "JP",
     cedula: "GP-5421764",
+    office: "206",
+    officePhone: "461 618 0821",
   },
   {
     id: "6",
     name: "Dra. Elena Ruiz Valadéz",
     specialty: "Cardiología",
+    subspecialty: "Ecocardiografía",
     hospital: "Hospital MAC Celaya",
     initials: "ER",
     cedula: "CA-9182374",
+    office: "310",
+    officePhone: "461 618 0822",
   },
   {
     id: "7",
@@ -42,31 +56,46 @@ const LOCAL_DOCTORS: Doctor[] = [
     hospital: "Hospital MAC Celaya",
     initials: "AM",
     cedula: "PE-2938173",
+    office: "108",
+    officePhone: "461 618 0823",
   },
 ];
 
 export default function HospitalBranch({ params }: PageProps) {
   const { slug } = use(params);
 
-  // Capitalize slug for heading display
-  const branchName = slug.charAt(0).toUpperCase() + slug.slice(1);
+  // Capitalize slug for heading display (soporta slugs con guiones: "aguascalientes-norte")
+  const branchName = slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
   const titleName = `Hospital MAC ${branchName}`;
 
   const address = branchName === "Celaya"
     ? "Av. Luis Donaldo Colosio 101, Col. Valle Hermoso, C.P. 38010, Celaya, Gto."
     : `Av. Universidad Nacional 820, Col. Centro, C.P. 20000, ${branchName}, México.`;
 
-  const phone = branchName === "Celaya" ? "461 618 0800" : "800 622 0800";
-
-  const handleBooking = (doctor: Doctor) => {
-    alert(`Cita solicitada con ${doctor.name} en ${titleName}. Nos comunicaremos a la brevedad.`);
-  };
-
   const branchServices = [
     { name: "Urgencias 24/7", desc: "Médicos urgenciólogos listos para atenderte a cualquier hora.", icon: <ShieldAlert className="w-5 h-5 text-mac-primary" /> },
     { name: "Quirófanos", desc: "Equipamiento de alta especialidad para procedimientos complejos.", icon: <HeartPulse className="w-5 h-5 text-mac-primary" /> },
     { name: "Consulta Externa", desc: "Médicos especialistas certificados en más de 20 áreas.", icon: <Activity className="w-5 h-5 text-mac-primary" /> },
     { name: "Terapia Intensiva", desc: "Unidad de cuidados intensivos para adultos y cuidados neonatales.", icon: <Brain className="w-5 h-5 text-mac-primary" /> },
+  ];
+
+  const galleryImages = [
+    { src: "/img/maternidad.jpeg", alt: "Suites de maternidad", caption: "Suites privadas con tecnología de punta" },
+    { src: "/img/cardiologia.webp", alt: "Área de cardiología", caption: "Laboratorio de cardiología" },
+    { src: "/img/pediatria.webp", alt: "Área de pediatría", caption: "Zona pediátrica especializada" },
+    { src: "/img/cirugia.webp", alt: "Quirófanos", caption: "Quirófanos de última generación" },
+  ];
+
+  const complementaryServices = [
+    { name: "Cafetería", desc: "Espacio de descanso con opciones de alimentos y bebidas.", icon: <Coffee className="w-5 h-5" /> },
+    { name: "Wi-Fi Gratuito", desc: "Conexión a internet disponible en todas las áreas del hospital.", icon: <Wifi className="w-5 h-5" /> },
+    { name: "Accesibilidad", desc: "Instalaciones completamente adaptadas para personas con movilidad reducida.", icon: <Accessibility className="w-5 h-5" /> },
+    { name: "Restaurante", desc: "Menú balanceado diseñado con nutricionistas para pacientes.", icon: <Utensils className="w-5 h-5" /> },
+    { name: "Estacionamiento", desc: "Amplio parqueadero vigilado 24/7 para mayor seguridad.", icon: <Car className="w-5 h-5" /> },
+    { name: "Salas de Espera", desc: "Áreas cómodas y seguras para acompañantes y familiares.", icon: <Activity className="w-5 h-5" /> },
   ];
 
   return (
@@ -93,11 +122,11 @@ export default function HospitalBranch({ params }: PageProps) {
             <CTAButton
               variant="outline"
               size="md"
-              href={`tel:${phone.replace(/\s+/g, "")}`}
+              href={`tel:${CALL_CENTER_TEL}`}
               className="text-white border-white hover:bg-white hover:text-mac-primary-dark w-full sm:w-auto"
               icon={<Phone className="w-4 h-4" />}
             >
-              Llamar a Sede
+              Call Center {CALL_CENTER_DISPLAY}
             </CTAButton>
             <CTAButton
               variant="secondary"
@@ -147,6 +176,12 @@ export default function HospitalBranch({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <HospitalGallery hospitalName={titleName} images={galleryImages} />
+
+      {/* Complementary Services Section */}
+      <HospitalComplementaryServices services={complementaryServices} />
+
       {/* Doctors Section */}
       <section className="bg-gray-50 py-14 px-4 border-b border-gray-100">
         <div className="max-w-7xl mx-auto">
@@ -171,7 +206,6 @@ export default function HospitalBranch({ params }: PageProps) {
               <DoctorCard
                 key={doctor.id}
                 doctor={doctor}
-                onBook={handleBooking}
               />
             ))}
           </div>

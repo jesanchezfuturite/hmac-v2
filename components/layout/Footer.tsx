@@ -5,9 +5,9 @@ import { Facebook, Instagram, Youtube } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-mac-primary-dark to-black text-white pt-12 pb-6 px-4 border-t border-white/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
         {/* Column 1 - Brand */}
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 lg:col-span-2">
           <Link href="/" className="flex items-center">
             <img
               src="/img/hospitales-mac.svg"
@@ -74,9 +74,6 @@ export default function Footer() {
           </span>
           <nav className="flex flex-col space-y-2 text-body font-normal text-white/95">
             <Link href="#" className="hover:text-mac-primary-light transition-colors">
-              Renta de consultorios
-            </Link>
-            <Link href="#" className="hover:text-mac-primary-light transition-colors">
               Check-ups corporativos
             </Link>
             <Link href="#" className="hover:text-mac-primary-light transition-colors">
@@ -88,20 +85,29 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Column 4 - Pacientes */}
+        {/* Column 4 - Médicos */}
+        <div className="flex flex-col space-y-3">
+          <span className="text-body font-medium text-mac-primary-light uppercase tracking-wider">
+            Médicos
+          </span>
+          <nav className="flex flex-col space-y-2 text-body font-normal text-white/95">
+            <Link href="#" className="hover:text-mac-primary-light transition-colors">
+              Consultorios
+            </Link>
+            <Link href="#" className="hover:text-mac-primary-light transition-colors">
+              Credencialización
+            </Link>
+          </nav>
+        </div>
+
+        {/* Column 5 - Pacientes */}
         <div className="flex flex-col space-y-3">
           <span className="text-body font-medium text-mac-primary-light uppercase tracking-wider">
             Pacientes
           </span>
           <nav className="flex flex-col space-y-2 text-body font-normal text-white/95">
             <Link href="#" className="hover:text-mac-primary-light transition-colors">
-              Portal de pacientes
-            </Link>
-            <Link href="#" className="hover:text-mac-primary-light transition-colors">
               Resultados en línea
-            </Link>
-            <Link href="#" className="hover:text-mac-primary-light transition-colors">
-              Facturación
             </Link>
             <Link href="#" className="hover:text-mac-primary-light transition-colors">
               Referencia de pago
@@ -110,8 +116,23 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Institutional links */}
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-8 border-t border-white/10 text-body font-normal text-white/95">
+        <Link href="#" className="hover:text-mac-primary-light transition-colors">
+          Fundación Hospitales MAC
+        </Link>
+        <span className="text-white/30">·</span>
+        <Link href="#" className="hover:text-mac-primary-light transition-colors">
+          Inversionistas
+        </Link>
+        <span className="text-white/30">·</span>
+        <Link href="#" className="hover:text-mac-primary-light transition-colors">
+          Código de Ética
+        </Link>
+      </div>
+
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-caption font-normal text-white/60 space-y-4 md:space-y-0">
+      <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-caption font-normal text-white/60 space-y-4 md:space-y-0">
         <div>
           <span>© 2026 Hospitales MAC · Todos los derechos reservados</span>
         </div>

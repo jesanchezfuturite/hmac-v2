@@ -4,6 +4,8 @@ import "./globals.css";
 import TopBar from "@/components/layout/TopBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FloatingCallCenter from "@/components/floating/FloatingCallCenter";
+import FloatingChat from "@/components/floating/FloatingChat";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,6 +41,10 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+
+        {/* Floating widgets - Chat and Call Center */}
+        <FloatingCallCenter />
+        <FloatingChat />
       </body>
     </html>
   );
