@@ -2,69 +2,24 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Building2, MapPin, Navigation, ArrowRight, Phone } from "lucide-react";
+import { Building2, Navigation, ArrowRight } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
+import { PENDING_ROUTE } from "@/lib/site";
+import { HOSPITALS, directionsUrl } from "@/lib/hospitals";
 
+/**
+ * Encuentra tu Hospital MAC más cercano — doc 3.6
+ *
+ * La estructura (listado + mapa) se conserva. Lo pendiente es la funcionalidad:
+ * ordenar por proximidad usando la ubicación del usuario como recomendación
+ * inicial, no como restricción, y reutilizar esa misma lógica en Urgencias 24/7.
+ */
 export default function HospitalMap() {
-  const branches = [
-    {
-      id: 1,
-      name: "Hospital MAC Aguascalientes Norte",
-      city: "Aguascalientes",
-      address: "Av. Universidad 1001, Col. San José del Arenal, Aguascalientes, Ags.",
-      phone: "449 123 4567",
-      slug: "aguascalientes-norte",
-      pinPosition: { top: "35%", left: "30%" },
-    },
-    {
-      id: 2,
-      name: "Hospital MAC Celaya",
-      city: "Guanajuato",
-      address: "Av. Luis Donaldo Colosio 101, Col. Valle Hermoso, Celaya, Gto.",
-      phone: "461 618 0800",
-      slug: "celaya",
-      pinPosition: { top: "48%", left: "45%" },
-    },
-    {
-      id: 3,
-      name: "Hospital MAC Irapuato",
-      city: "Guanajuato",
-      address: "Av. Reforma 3102, Col. Militar, Irapuato, Gto.",
-      phone: "462 123 8900",
-      slug: "irapuato",
-      pinPosition: { top: "45%", left: "38%" },
-    },
-    {
-      id: 4,
-      name: "Hospital MAC Puebla",
-      city: "Puebla",
-      address: "Periférico Ecológico 3507, San Andrés Cholula, Pue.",
-      phone: "222 123 7700",
-      slug: "puebla",
-      pinPosition: { top: "62%", left: "65%" },
-    },
-    {
-      id: 5,
-      name: "Hospital MAC León",
-      city: "Guanajuato",
-      address: "Blvd. Aeropuerto 1002, Col. Predio Santa Julia, León, Gto.",
-      phone: "477 123 1100",
-      slug: "leon",
-      pinPosition: { top: "41%", left: "40%" },
-    },
-    {
-      id: 6,
-      name: "Hospital MAC Querétaro",
-      city: "Querétaro",
-      address: "Blvd. Bernardo Quintana 2901, Col. Centro Sur, Querétaro, Qro.",
-      phone: "442 123 2200",
-      slug: "queretaro",
-      pinPosition: { top: "49%", left: "50%" },
-    },
-  ];
+  // Sedes tomadas de la fuente única de información de hospitales
+  const branches = HOSPITALS;
 
-  const [activeBranchId, setActiveBranchId] = useState(2); // Celaya as default active
-  const activeBranch = branches.find(b => b.id === activeBranchId) || branches[1];
+  const [activeSlug, setActiveSlug] = useState("celaya");
+  const activeBranch = branches.find((b) => b.slug === activeSlug) ?? branches[0];
 
   return (
     <section id="hospitales" className="bg-white py-16 px-4 border-b border-gray-150 scroll-mt-24">
@@ -73,15 +28,14 @@ export default function HospitalMap() {
         {/* Header Row */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-caption font-medium tracking-wider text-gray-400 uppercase">
-              Red nacional
-            </span>
-            <h2 className="text-3xl font-medium tracking-tight text-mac-carbon mt-1">
-              Encuentra tu hospital MAC más cercano
+            <h2 className="text-3xl font-medium tracking-tight text-mac-carbon">
+              Encuentra tu Hospital MAC más cercano
             </h2>
+            {/* TODO: ordenar por distancia con la ubicación del usuario (doc 3.6.2) */}
           </div>
           <div className="shrink-0">
-            <CTAButton variant="outline" size="sm" href="/hospitales/celaya">
+            {/* TODO: apuntar al directorio completo /hospitales (doc 4.1) */}
+            <CTAButton variant="outline" size="sm" href={PENDING_ROUTE}>
               Ver todos los hospitales
             </CTAButton>
           </div>
@@ -93,11 +47,11 @@ export default function HospitalMap() {
           {/* Column Left (45%): Scrollable cards list */}
           <div className="col-span-12 lg:col-span-5 flex flex-col space-y-4 max-h-[520px] overflow-y-auto pr-3 scrollbar-thin scrollbar-thumb-gray-200">
             {branches.map((branch) => {
-              const isActive = branch.id === activeBranchId;
+              const isActive = branch.slug === activeSlug;
               return (
                 <div
-                  key={branch.id}
-                  onClick={() => setActiveBranchId(branch.id)}
+                  key={branch.slug}
+                  onClick={() => setActiveSlug(branch.slug)}
                   className={`flex gap-4 p-4 border rounded-xl bg-white hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer ${
                     isActive
                       ? "border-mac-primary shadow-[0_4px_12px_rgba(26,107,60,0.06)]"
@@ -126,24 +80,23 @@ export default function HospitalMap() {
 
                     {/* CTAs base */}
                     <div className="flex items-center justify-between mt-4 pt-2 border-t border-gray-100 w-full text-caption">
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          alert(`Cómo llegar a ${branch.name}: Abriendo coordenadas...`);
-                        }}
+                      <a
+                        href={directionsUrl(branch)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center text-gray-500 hover:text-mac-primary font-medium transition-colors cursor-pointer"
                       >
                         <Navigation className="w-3 h-3 mr-1" />
                         Cómo llegar
-                      </button>
+                      </a>
                       
                       <Link
                         href={`/hospitales/${branch.slug}`}
                         onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center text-mac-primary hover:text-mac-primary-dark font-medium transition-colors"
                       >
-                        Ver detalles
+                        Ver hospital
                         <ArrowRight className="w-3 h-3 ml-0.5" />
                       </Link>
                     </div>

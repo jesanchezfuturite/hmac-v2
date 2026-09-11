@@ -20,8 +20,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hospitales MAC · Red Nacional de Salud",
-  description: "Red nacional de hospitales privados de alta especialidad. Alta especialidad médica accesible en tu ciudad. 25 unidades en México.",
+  title: "Hospitales MAC · Atención médica de alta especialidad",
+  description:
+    "Encuentra la atención médica que necesitas en el Hospital MAC más cercano a ti. 25 hospitales en 18 ciudades de México.",
 };
 
 export default function RootLayout({

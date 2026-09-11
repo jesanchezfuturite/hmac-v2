@@ -3,6 +3,28 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { AlertCircle, CalendarPlus, Menu, X } from "lucide-react";
+import { PENDING_ROUTE } from "@/lib/site";
+
+/**
+ * Barra de navegación principal — doc 3.2
+ *
+ * Distingue navegación (secciones del sitio) de CTA (acciones que queremos que
+ * el usuario realice). Blog sale del menú: su ubicación definitiva se define en
+ * la revisión de arquitectura de contenidos.
+ */
+
+// TODO: "Hospitales" debe apuntar al directorio /hospitales cuando exista (doc 4.1);
+// hoy resuelve al localizador de la Home.
+const NAV_LINKS = [
+  { label: "Somos", href: PENDING_ROUTE },
+  { label: "Hospitales", href: "/#hospitales" },
+  { label: "Directorio médico", href: "/directorio-medico" },
+  { label: "Servicios", href: PENDING_ROUTE },
+  { label: "Maternidad", href: "/maternidad" },
+];
+
+const navLinkClass =
+  "relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,49 +41,46 @@ export default function Header() {
           />
         </Link>
 
-        {/* Central Nav (hidden on mobile) */}
+        {/* Navegación (oculta en mobile) */}
         <nav className="hidden lg:flex items-center space-x-6 text-body font-normal text-mac-carbon">
-          <Link href="#" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
-            Somos
-          </Link>
-          <Link href="/hospitales/celaya" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
-            Hospitales
-          </Link>
-          <Link href="/directorio-medico" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
-            Directorio médico
-          </Link>
-          <Link href="#" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
-            Servicios
-          </Link>
-          <Link href="/maternidad" className="relative py-1 text-mac-primary font-medium hover:text-mac-primary-dark transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary-dark after:transition-all after:duration-300 hover:after:w-full">
-            Maternidad
-          </Link>
-          <Link href="/blog" className="relative py-1 hover:text-mac-primary transition-colors duration-200 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-mac-primary after:transition-all after:duration-300 hover:after:w-full">
-            Blog
+          {NAV_LINKS.map((link) => (
+            <Link key={link.label} href={link.href} className={navLinkClass}>
+              {link.label}
+            </Link>
+          ))}
+
+          {/* Pre-registro: acción de alta intención, destacada dentro de la navegación */}
+          {/* TODO: conectar con el flujo de pre-registro actual (doc 3.2.1) */}
+          <Link
+            href={PENDING_ROUTE}
+            className="px-3 py-1.5 rounded-lg border border-mac-primary text-mac-primary font-medium hover:bg-mac-primary-tint transition-colors duration-200"
+          >
+            Pre-registro
           </Link>
         </nav>
 
-        {/* CTAs & Hamburger Toggle */}
+        {/* CTAs permanentes */}
         <div className="flex items-center space-x-3">
-          {/* Urgent button (always visible) */}
-          <a
-            href="tel:911"
+          {/* Urgencias 24/7 — debe llevar a una experiencia orientada a la acción */}
+          {/* TODO: sustituir por /urgencias con hospital más cercano por geolocalización (doc 3.2.3) */}
+          <Link
+            href="/#hospitales"
             className="flex items-center justify-center space-x-1.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-mac-danger text-white rounded-lg border border-red-700/20 shadow-[0_2px_8px_rgba(220,38,38,0.2)] hover:shadow-[0_4px_16px_rgba(220,38,38,0.35)] hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] transition-all duration-300 ease-in-out text-[13px] sm:text-body font-medium"
           >
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>Urgencias 24/7</span>
-          </a>
+          </Link>
 
-          {/* Book Appointment (hidden on mobile) */}
+          {/* Agenda tu estudio — la herramienta disponible es de Imagenología */}
+          {/* TODO: conectar con el agendamiento en línea de Imagenología (doc 3.2.2) */}
           <Link
-            href="/directorio-medico"
+            href={PENDING_ROUTE}
             className="hidden sm:flex items-center justify-center space-x-1.5 px-4 py-2.5 bg-mac-primary text-white rounded-lg border border-emerald-800/10 shadow-[0_2px_8px_rgba(26,107,60,0.15)] hover:bg-mac-primary-dark hover:shadow-[0_4px_16px_rgba(26,107,60,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-in-out text-body font-medium"
           >
             <CalendarPlus className="w-4 h-4 shrink-0" />
-            <span>Agendar cita</span>
+            <span>Agenda tu estudio</span>
           </Link>
 
-          {/* Hamburger Icon Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Abrir menú"
@@ -72,60 +91,35 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation Panel */}
+      {/* Panel de navegación mobile */}
       {isOpen && (
         <div className="lg:hidden absolute top-24 left-0 right-0 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-xl z-50 py-4 px-6 flex flex-col space-y-3 font-display font-medium text-mac-carbon animate-in fade-in slide-in-from-top-4 duration-200 ease-out">
-          <Link 
-            href="#" 
-            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Somos
-          </Link>
-          <Link 
-            href="/hospitales/celaya" 
-            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Hospitales
-          </Link>
-          <Link 
-            href="/directorio-medico" 
-            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Directorio médico
-          </Link>
-          <Link 
-            href="#" 
-            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Servicios
-          </Link>
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+
           <Link
-            href="/maternidad"
+            href={PENDING_ROUTE}
             className="py-2.5 text-mac-primary hover:text-mac-primary-dark transition-colors"
             onClick={() => setIsOpen(false)}
           >
-            Maternidad
-          </Link>
-          <Link
-            href="/blog"
-            className="py-2.5 border-b border-gray-100 hover:text-mac-primary transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Blog
+            Pre-registro
           </Link>
 
-          {/* Mobile-only CTA */}
           <Link
-            href="/directorio-medico"
+            href={PENDING_ROUTE}
             className="sm:hidden flex items-center justify-center space-x-1.5 px-4 py-3 bg-mac-primary text-white rounded-lg font-medium text-center w-full shadow-sm hover:bg-mac-primary-dark active:scale-[0.98] transition-all duration-200 mt-2"
             onClick={() => setIsOpen(false)}
           >
             <CalendarPlus className="w-4 h-4 shrink-0" />
-            <span>Agendar cita</span>
+            <span>Agenda tu estudio</span>
           </Link>
         </div>
       )}

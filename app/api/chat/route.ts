@@ -15,7 +15,7 @@ Tu rol es proporcionar información clara y amable sobre:
 - Cómo agendar citas o consultas
 - Información sobre promociones y paquetes médicos
 - Requisitos de admisión y aseguradoras
-- Contacto al Call Center: 800 622 0800 (canal oficial)
+- Contacto al Call Center: 55 4169 8514 (canal oficial nacional)
 
 IMPORTANTE:
 - NO brindas diagnósticos médicos ni recomendaciones de tratamiento
@@ -29,7 +29,7 @@ Datos clave:
 - 25 hospitales en México
 - +3,000 especialistas certificados
 - Urgencias disponibles 24/7
-- Call Center: 800 MAC 0800 (8006220800)
+- Call Center: 55 4169 8514
 - Sitio web: www.hospitalesmac.mx (placeholder)`;
 
 interface ChatMessage {

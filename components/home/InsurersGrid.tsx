@@ -1,8 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
+import { Building2 } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
+import { PENDING_ROUTE } from "@/lib/site";
 
+/**
+ * Más opciones para cuidar tu salud — doc 3.9
+ *
+ * Concepto paraguas que comparte espacio en Home para las dos vías de acceso a
+ * beneficios, sin fusionarlas:
+ *   Aseguradoras → respaldo y cobertura para pacientes asegurados.
+ *   Empresas     → beneficios de salud para colaboradores con convenio.
+ *
+ * En Home solo se muestra una selección representativa de logos; el listado
+ * completo vive en el directorio de aseguradoras.
+ */
 export default function InsurersGrid() {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -74,50 +87,92 @@ export default function InsurersGrid() {
     { name: "World Travel Assist", src: "/img/logos_aseguradoras/world_travel_assist.png" },
   ];
 
-  // Show first 18 logos initially
-  const visibleInsurers = isExpanded ? allInsurers : allInsurers.slice(0, 18);
+  // Selección representativa para Home; el resto se consulta en el directorio
+  const FEATURED_COUNT = 12;
+  const visibleInsurers = isExpanded ? allInsurers : allInsurers.slice(0, FEATURED_COUNT);
 
   return (
-    <section className="bg-white py-20 px-4 border-b border-gray-150 relative">
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
-        
-        {/* Section Header */}
-        <div className="mb-10 text-center">
-          <span className="inline-flex bg-[#95c124] px-3 py-1 rounded-full text-[10px] font-medium tracking-widest text-white uppercase select-none mb-3 w-fit mx-auto">
-            Aseguradoras en Convenio
-          </span>
-          <h2 className="font-display text-3xl font-medium tracking-tight text-mac-carbon mt-1">
-            Amplia cobertura nacional e internacional
+    <section className="bg-white py-20 px-4 border-b border-gray-150">
+      <div className="max-w-7xl mx-auto flex flex-col">
+
+        <div className="mb-14 text-center">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-mac-carbon">
+            Más opciones para cuidar tu salud
           </h2>
-          <p className="text-caption font-normal text-gray-500 mt-2 max-w-lg mx-auto">
-            Trabajamos con las principales instituciones financieras y fondos de asistencia médica para darte el mejor servicio.
+        </div>
+
+        {/* Bloque 1 — Aseguradoras */}
+        <div className="flex flex-col items-center">
+          <div className="text-center max-w-2xl">
+            <h3 className="font-display text-2xl font-medium text-mac-carbon">
+              Amplia cobertura nacional e internacional
+            </h3>
+            <p className="text-body font-normal text-gray-500 mt-3">
+              Contamos con convenios con las principales aseguradoras nacionales y
+              con una amplia red de aseguradoras internacionales, facilitando el
+              acceso de nuestros pacientes a la atención médica que necesitan.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-12 sm:gap-x-16 gap-y-10 max-w-6xl w-full mt-12">
+            {visibleInsurers.map((insurer) => (
+              <img
+                key={insurer.name}
+                src={insurer.src}
+                alt={insurer.name}
+                title={insurer.name}
+                className="h-16 sm:h-20 w-auto max-w-[180px] sm:max-w-[220px] object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 select-none"
+                loading="lazy"
+              />
+            ))}
+          </div>
+
+          {/* TODO: el CTA debe llevar al directorio funcional de aseguradoras,
+              con búsqueda y consulta de dónde aplica cada convenio (doc 3.9.4).
+              Mientras tanto expande el listado dentro de la Home. */}
+          <div className="mt-10">
+            <CTAButton
+              variant="outline"
+              size="md"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "Mostrar menos" : "Ver todas las aseguradoras"}
+            </CTAButton>
+          </div>
+
+          {/* Tener convenio no equivale a tener cobertura garantizada (doc 3.9.4) */}
+          <p className="text-caption font-normal text-gray-400 text-center max-w-2xl mt-6 leading-relaxed">
+            La cobertura y condiciones de atención dependen de las condiciones
+            particulares de cada póliza y de la autorización correspondiente de la
+            aseguradora.
           </p>
         </div>
 
-        {/* Modern Clean Logo Grid - No card boxes, no borders, just raw logos with generous spacing */}
-        <div className="flex flex-wrap items-center justify-center gap-x-12 sm:gap-x-20 gap-y-10 sm:gap-y-16 max-w-6xl w-full mt-12 transition-all duration-500">
-          {visibleInsurers.map((insurer, idx) => (
-            <img
-              key={idx}
-              src={insurer.src}
-              alt={insurer.name}
-              title={insurer.name}
-              className="h-20 sm:h-28 w-auto max-w-[200px] sm:max-w-[300px] object-contain filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer select-none"
-              loading="lazy"
-            />
-          ))}
-        </div>
+        {/* Bloque 2 — Empresas: mismo espacio, experiencia diferenciada */}
+        <div className="mt-16 pt-12 border-t border-gray-150">
+          <div className="bg-[#F8FAFB] border border-gray-200 rounded-2xl p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center gap-8">
+            <div className="w-12 h-12 rounded-xl bg-mac-primary-tint text-mac-primary flex items-center justify-center shrink-0">
+              <Building2 className="w-6 h-6" />
+            </div>
 
-        {/* Expand / Collapse Button */}
-        <div className="mt-10 shrink-0">
-          <CTAButton
-            variant="secondary"
-            size="md"
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="shadow-sm border border-mac-primary/10"
-          >
-            {isExpanded ? "Mostrar menos" : "Ver más"}
-          </CTAButton>
+            <div className="flex-1">
+              <h3 className="font-display text-2xl font-medium text-mac-carbon">
+                Empresas
+              </h3>
+              <p className="text-body font-normal text-gray-500 mt-2 max-w-2xl">
+                Beneficios de salud disponibles para colaboradores de empresas con
+                convenio vigente con Hospitales MAC.
+              </p>
+            </div>
+
+            {/* TODO: landing de beneficios para empresas, adaptable por convenio
+                (doc 3.9.6) */}
+            <div className="shrink-0">
+              <CTAButton variant="primary" size="lg" href={PENDING_ROUTE}>
+                Conoce tus beneficios
+              </CTAButton>
+            </div>
+          </div>
         </div>
 
       </div>

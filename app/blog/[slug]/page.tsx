@@ -48,7 +48,7 @@ const blogPosts: Record<string, any> = {
       </ul>
 
       <h3>Fechas y Ubicaciones</h3>
-      <p>Los chequeos estarán disponibles en todas nuestras 25 sedes hospitalarias a nivel nacional. Se recomienda cita previa llamando al 800 MAC 0800.</p>
+      <p>Los chequeos estarán disponibles en todas nuestras 25 sedes hospitalarias a nivel nacional. Se recomienda cita previa llamando al 55 4169 8514.</p>
 
       <p>La prevención es el mejor tratamiento. Cuidemos juntos la salud de nuestro corazón.</p>
     `,
@@ -216,7 +216,7 @@ export default function BlogPostPage({ params }: PageProps) {
             <CTAButton
               variant="primary"
               size="lg"
-              href="tel:8006220800"
+              href="tel:+525541698514"
             >
               Llamar al Call Center
             </CTAButton>
