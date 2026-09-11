@@ -21,8 +21,6 @@ interface HelpOption {
   icon: React.ReactNode;
   title: string;
   description: string;
-  /** Dato destacado validado, cuando existe (p. ej. el número de Call Center) */
-  highlight?: string;
   buttonLabel: string;
   href?: string;
   action?: () => void;
@@ -32,7 +30,7 @@ export default function CommercialCTASection() {
   const options: HelpOption[] = [
     {
       id: "cotizacion",
-      icon: <Calculator className="w-8 h-8" />,
+      icon: <Calculator className="w-6 h-6" />,
       title: "Cotiza tu cirugía",
       description:
         "Solicita una cotización personalizada para tu procedimiento y recibe orientación sobre los siguientes pasos.",
@@ -42,7 +40,7 @@ export default function CommercialCTASection() {
     },
     {
       id: "agenda",
-      icon: <CalendarPlus className="w-8 h-8" />,
+      icon: <CalendarPlus className="w-6 h-6" />,
       title: "Agenda tu estudio",
       description:
         "Programa en línea tus estudios de Imagenología disponibles y elige la opción que mejor se adapte a tus necesidades.",
@@ -52,17 +50,18 @@ export default function CommercialCTASection() {
     },
     {
       id: "call-center",
-      icon: <Phone className="w-8 h-8" />,
+      icon: <Phone className="w-6 h-6" />,
       title: "Llama a nuestro Call Center",
       description:
         "Habla con nuestro equipo para resolver dudas sobre hospitales, servicios, médicos y procesos de atención.",
-      highlight: CALL_CENTER.display,
-      buttonLabel: "Llamar ahora",
+      // El número es el dato destacado de la tarjeta y va dentro del CTA: es la
+      // acción misma, y en móvil el botón inicia la llamada (doc 3.5.3)
+      buttonLabel: `Llamar al ${CALL_CENTER.display}`,
       href: `tel:${CALL_CENTER.tel}`,
     },
     {
       id: "asistente",
-      icon: <MessageSquare className="w-8 h-8" />,
+      icon: <MessageSquare className="w-6 h-6" />,
       title: "Consulta con nuestro asistente IA",
       description:
         "Encuentra información sobre nuestros hospitales, servicios y opciones de atención de forma rápida y sencilla.",
@@ -91,33 +90,24 @@ export default function CommercialCTASection() {
           {options.map((option) => (
             <div
               key={option.id}
-              className="flex flex-col bg-white rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:border-mac-primary hover:shadow-[0_12px_40px_rgba(26,107,60,0.15)] group"
+              className="group flex flex-col h-full bg-white rounded-2xl p-6 border border-gray-200 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:border-mac-primary hover:shadow-[0_12px_40px_rgba(26,107,60,0.15)] transition-all duration-300"
             >
-              <div className="py-8 px-6 text-center bg-gray-50 group-hover:bg-gradient-to-b group-hover:from-mac-primary-tint group-hover:to-white transition-all duration-300">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 bg-mac-primary-tint text-mac-primary group-hover:bg-mac-primary group-hover:text-white">
-                  {option.icon}
-                </div>
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-mac-primary-tint text-mac-primary group-hover:bg-mac-primary group-hover:text-white transition-colors duration-300 mb-5">
+                {option.icon}
               </div>
 
-              <div className="flex-1 px-6 py-6 flex flex-col">
-                <h3 className="font-display text-h3 font-medium text-mac-carbon mb-2 leading-tight">
-                  {option.title}
-                </h3>
-                <p className="text-caption font-normal text-gray-500 leading-relaxed">
-                  {option.description}
-                </p>
+              <h3 className="font-display text-h3 font-medium text-mac-carbon leading-tight">
+                {option.title}
+              </h3>
+              <p className="text-caption font-normal text-gray-500 leading-relaxed mt-2">
+                {option.description}
+              </p>
 
-                {option.highlight && (
-                  <p className="text-2xl font-display font-medium text-mac-primary leading-tight mt-5">
-                    {option.highlight}
-                  </p>
-                )}
-              </div>
-
-              <div className="px-6 py-6 border-t border-gray-100 bg-white">
+              {/* El CTA se ancla abajo para que las cuatro tarjetas cierren igual */}
+              <div className="mt-auto pt-6">
                 <CTAButton
                   variant="outline"
-                  size="md"
+                  size="lg"
                   className="w-full text-center"
                   href={option.href}
                   onClick={option.action}
