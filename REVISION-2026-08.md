@@ -16,16 +16,19 @@ mapa para ejecutarlo.
 
 ---
 
-## 0. Antes de avanzar: cuatro decisiones que necesitan tu confirmación
+## 0. Decisiones de criterio
 
-**1. El teléfono cambió y es un conflicto real.**
-El documento fija el Call Center Nacional en **55 4169 8514** y pide homologarlo en franja
-superior, "¿Cómo podemos ayudarte?", footer, botón flotante y landings de promoción. El sitio
-traía **800 622 0800**, que en julio se registró como "canal oficial". Apliqué el número del
-documento (es posterior) y lo centralicé en [lib/site.ts](lib/site.ts) para que un solo cambio
-lo propague. **Confirmar con el cliente cuál es el vigente.**
+### Confirmadas
 
-**2. Quité la sección de especialidades de la Home.**
+**El teléfono es 55 4169 8514.** Confirmado por el cliente el 11-09-2026. Sustituye al
+800 622 0800 que se había registrado en julio de 2026 como "canal oficial". Está aplicado y
+centralizado en [lib/site.ts](lib/site.ts): franja superior, "¿Cómo podemos ayudarte?",
+footer, botón flotante, asistente IA y blog toman el valor de ahí, así que un solo cambio lo
+propaga a todo el sitio.
+
+### Pendientes de tu confirmación
+
+**1. Quité la sección de especialidades de la Home.**
 `ServicesSection` mostraba 9 especialidades (Cardiología, Pediatría, Neurología…) bajo el
 título "Servicios de alta especialidad". El documento, citando validación de Legal, prohíbe
 exactamente eso: las especialidades son atributo del médico, no catálogo que MAC promocione, y
@@ -33,12 +36,12 @@ menciona por nombre los módulos "Especialidades disponibles" y "Servicios de al
 especialidad". Además el recorrido de Home que define el documento no incluye esa sección.
 Está en el historial de git por si el cliente la quiere de vuelta en otra forma.
 
-**3. Las reseñas de ejemplo siguen visibles, con aviso.**
+**2. Las reseñas de ejemplo siguen visibles, con aviso.**
 El documento prohíbe testimonios ficticios. Como todavía no hay integración con Google, dejé
 las tarjetas de ejemplo pero con un aviso visible de que es una vista previa. La alternativa
 es esconder la sección hasta tener la API. **Tu decisión según a quién se le presente.**
 
-**4. La cédula profesional quedó como campo opcional.**
+**3. La cédula profesional quedó como campo opcional.**
 No aparece en la lista de información obligatoria de la tarjeta de médico del documento, pero
 tampoco pide quitarla y puede tener implicaciones en publicidad sanitaria. La dejé como campo
 opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
@@ -353,7 +356,8 @@ código, con la referencia al punto del documento que los pide.
 
 ## 8. Orden sugerido para lo que sigue
 
-1. **Confirmar las cuatro decisiones del §0**, en especial el teléfono.
+1. **Confirmar las tres decisiones pendientes del §0** (especialidades en Home, reseñas de
+   ejemplo, cédula profesional).
 2. **Definir el CMS.** Es la dependencia que bloquea más decisiones y la que el documento
    marca como requisito funcional prioritario en el Directorio Médico.
 3. **Construir `/hospitales`** con las 25 sedes y las próximas aperturas: desbloquea la
