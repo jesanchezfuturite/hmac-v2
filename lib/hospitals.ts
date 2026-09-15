@@ -53,9 +53,23 @@ export interface Hospital {
   /** Fotografía representativa de la sede — doc 4.1.5. Pendiente del cliente:
    *  mientras no exista, la tarjeta usa un marcador neutro en vez de stock. */
   image?: string;
-  /** Necesarias para ordenar por cercanía y para /urgencias. Pendientes. */
-  lat?: number;
-  lng?: number;
+  /** Coordenadas para ordenar por cercanía y para /urgencias */
+  geo?: Geo;
+}
+
+/**
+ * Qué tan fina es la coordenada:
+ *   exacta    — el geocodificador ubicó el número de la dirección
+ *   calle     — solo la vialidad o la zona; puede desviarse cientos de metros
+ *   localidad — únicamente el municipio; sirve para ordenar entre ciudades,
+ *               no para distinguir sedes dentro de la misma
+ */
+export type GeoPrecision = "exacta" | "calle" | "localidad";
+
+export interface Geo {
+  lat: number;
+  lng: number;
+  precision: GeoPrecision;
 }
 
 /**
@@ -126,6 +140,7 @@ interface HospitalSeed {
   phone: string;
   status?: HospitalStatus;
   services: ServiceKey[];
+  geo: Geo;
 }
 
 /**
@@ -142,6 +157,7 @@ const SEED: HospitalSeed[] = [
     state: "Aguascalientes",
     address: "Blvd. Luis Donaldo Colosio Murrieta No. 106, Col. Lomas del Campestre II, C.P. 20119, Aguascalientes, Ags.",
     phone: "+52 449 478 9000",
+    geo: { lat: 21.92462, lng: -102.31636, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "medicinaNuclear"],
   },
   {
@@ -151,6 +167,7 @@ const SEED: HospitalSeed[] = [
     state: "Aguascalientes",
     address: "República del Perú No. 102, Col. Las Américas, C.P. 20230, Aguascalientes, Ags.",
     phone: "+52 449 910 6120",
+    geo: { lat: 21.8634, lng: -102.29813, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -160,6 +177,7 @@ const SEED: HospitalSeed[] = [
     state: "Veracruz",
     address: "Calzada Juan Pablo II No. 1728, Col. Urban Center, C.P. 94294, Boca del Río, Ver.",
     phone: "+52 229 271 7000",
+    geo: { lat: 19.1615, lng: -96.12236, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -169,6 +187,7 @@ const SEED: HospitalSeed[] = [
     state: "Ciudad de México",
     address: "Periférico Sur No. 5246, Col. Pedregal de Carrasco, C.P. 04700, Coyoacán, CDMX",
     phone: "+52 55 8000 7300",
+    geo: { lat: 19.30288, lng: -99.17343, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -178,6 +197,7 @@ const SEED: HospitalSeed[] = [
     state: "Guanajuato",
     address: "Av. Ferrocarril Central No. 709, Int. Local C, Col. Los Laureles 1a Sección, C.P. 38020, Celaya, Gto.",
     phone: "+52 461 192 0900",
+    geo: { lat: 20.52979, lng: -100.82993, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "medicinaNuclear", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -187,6 +207,7 @@ const SEED: HospitalSeed[] = [
     state: "Ciudad de México",
     address: "Pabellón Cuemanco, Cañaverales No. 222, Col. Granjas Coapa, C.P. 14330, Tlalpan, CDMX",
     phone: "+52 55 8978 3400",
+    geo: { lat: 19.28806, lng: -99.16697, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -196,6 +217,7 @@ const SEED: HospitalSeed[] = [
     state: "Estado de México",
     address: "Av. Insurgentes No. 20, Fracc. Las Américas, C.P. 55075, Ecatepec, Edo. Méx.",
     phone: "+52 55 8311 9400",
+    geo: { lat: 19.58652, lng: -98.99763, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -205,6 +227,7 @@ const SEED: HospitalSeed[] = [
     state: "Jalisco",
     address: "Av. Miguel Hidalgo y Costilla No. 930, Col. Centro, C.P. 44100, Guadalajara, Jal.",
     phone: "+52 33 3825 4365",
+    geo: { lat: 20.67694, lng: -103.36528, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -215,6 +238,7 @@ const SEED: HospitalSeed[] = [
     // TODO: el sitio actual publica C.P. 99999, que no es un código postal real
     address: "Carretera Guanajuato - Juventino Rosas, Yerbabuena No. 139, Col. Yerbabuena, Guanajuato, Gto.",
     phone: "+52 473 176 0100",
+    geo: { lat: 20.97033, lng: -101.28354, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -224,6 +248,7 @@ const SEED: HospitalSeed[] = [
     state: "Estado de México",
     address: "Pasaje Interlomas No. 16, Col. Centro Urbano San Fernando La Herradura, C.P. 52760, Huixquilucan, Edo. Méx.",
     phone: "+52 55 5225 0556",
+    geo: { lat: 19.37722, lng: -99.29598, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -233,6 +258,7 @@ const SEED: HospitalSeed[] = [
     state: "Guanajuato",
     address: "Dr. Javier Castellanos Coutiño No. 516, Col. San Pedro, C.P. 36520, Irapuato, Gto.",
     phone: "+52 462 622 8400",
+    geo: { lat: 20.67609, lng: -101.37154, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -242,6 +268,7 @@ const SEED: HospitalSeed[] = [
     state: "Ciudad de México",
     address: "Av. Calzada La Viga No. 1174, Col. El Triunfo, C.P. 09430, Iztapalapa, CDMX",
     phone: "+52 55 8978 3450",
+    geo: { lat: 19.36055, lng: -99.12224, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -251,6 +278,7 @@ const SEED: HospitalSeed[] = [
     state: "Guanajuato",
     address: "Blvd. Aeropuerto No. 101, Col. Villas Santa Julia, C.P. 37530, León, Gto.",
     phone: "+52 477 500 9500",
+    geo: { lat: 21.08441, lng: -101.61374, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -261,6 +289,7 @@ const SEED: HospitalSeed[] = [
     address: "Alexander Von Humboldt No. 88, Col. Lomas Verdes 3a Sección, C.P. 53125, Naucalpan de Juárez, Edo. Méx.",
     // TODO: el sitio actual publica aquí el número del Call Center Nacional
     phone: "+52 55 4169 8514",
+    geo: { lat: 19.51439, lng: -99.2615, precision: "exacta" },
     // TODO: solo publica Imagenología. Confirmar si es unidad de imagen y no hospital
     services: ["imagenologia"],
   },
@@ -271,6 +300,7 @@ const SEED: HospitalSeed[] = [
     state: "Baja California Sur",
     address: "Plaza Koral Center, Carr. Transpeninsular Km 24.5, Col. Cerro Colorado, C.P. 23405, San José del Cabo, B.C.S.",
     phone: "+52 624 104 9300",
+    geo: { lat: 23.00249, lng: -109.7321, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "bancoSangre"],
   },
   {
@@ -280,6 +310,7 @@ const SEED: HospitalSeed[] = [
     state: "Sinaloa",
     address: "Blvd. Pioneros del Valle No. 1505 Poniente, Col. Ejido Benito Juárez, C.P. 81379, Los Mochis, Sin.",
     phone: "+52 668 500 4200",
+    geo: { lat: 25.78366, lng: -108.97093, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -290,6 +321,7 @@ const SEED: HospitalSeed[] = [
     // TODO: el sitio actual publica "Col. Sin Nombre de Col 3"; falta la colonia real
     address: "Av. Correa Rachó No. 34, C.P. 97130, Mérida, Yuc.",
     phone: "+52 999 478 7100",
+    geo: { lat: 21.01213, lng: -89.58256, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -299,6 +331,7 @@ const SEED: HospitalSeed[] = [
     state: "Baja California",
     address: "Av. Circuito Brasil No. 86-C, Col. Parque Industrial Álamo, C.P. 21210, Mexicali, B.C.",
     phone: "+52 686 565 7555",
+    geo: { lat: 32.62453, lng: -115.4526, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -308,6 +341,7 @@ const SEED: HospitalSeed[] = [
     state: "Puebla",
     address: "Av. Periférico Ecológico No. 3507, Col. Reserva Territorial Atlixcáyotl, C.P. 72820, Tlaxcalancingo, Pue.",
     phone: "+52 222 214 1660",
+    geo: { lat: 19.02032, lng: -98.26479, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "medicinaNuclear", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -317,6 +351,7 @@ const SEED: HospitalSeed[] = [
     state: "Querétaro",
     address: "Priv. Ignacio Zaragoza No. 16, Col. Centro, C.P. 76000, Querétaro, Qro.",
     phone: "+52 442 477 2222",
+    geo: { lat: 20.58407, lng: -100.40025, precision: "exacta" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "bancoSangre"],
   },
   {
@@ -326,6 +361,7 @@ const SEED: HospitalSeed[] = [
     state: "Guanajuato",
     address: "Camino a Alcocer No. 12, Col. Saltito de Guadalupe, C.P. 37745, San Miguel de Allende, Gto.",
     phone: "+52 415 150 3900",
+    geo: { lat: 20.91305, lng: -100.73566, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "trasplantes", "procuracionOrganos"],
   },
   {
@@ -338,6 +374,7 @@ const SEED: HospitalSeed[] = [
     phone: "+52 55 4169 8514",
     // El sitio actual la anuncia como PRÓXIMA GRAN APERTURA
     status: "proximamente",
+    geo: { lat: 19.35443, lng: -99.2797, precision: "calle" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
   {
@@ -347,6 +384,7 @@ const SEED: HospitalSeed[] = [
     state: "Tamaulipas",
     address: "Av. Miguel Hidalgo No. 1900, Col. Altavista, C.P. 89240, Tampico, Tamps.",
     phone: "+52 833 213 0201",
+    geo: { lat: 22.27011, lng: -97.89487, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion", "bancoSangre"],
   },
   {
@@ -356,6 +394,7 @@ const SEED: HospitalSeed[] = [
     state: "Baja California",
     address: "Vía Rápida Oriente No. 15000, Int. H-01, Col. Chapultepec Alamar, C.P. 22110, Tijuana, B.C.",
     phone: "+52 664 478 3850",
+    geo: { lat: 32.53648, lng: -117.03712, precision: "localidad" },
     // TODO: solo publica Imagenología. Confirmar si es unidad de imagen y no hospital
     services: ["imagenologia"],
   },
@@ -366,6 +405,7 @@ const SEED: HospitalSeed[] = [
     state: "Estado de México",
     address: "Av. Dr. Gustavo Baz No. 309-TR A1, Col. La Loma, C.P. 54060, Tlalnepantla, Edo. Méx.",
     phone: "+52 55 8977 5100",
+    geo: { lat: 19.54649, lng: -99.18994, precision: "localidad" },
     services: ["urgencias", "imagenologia", "laboratorio", "quirofanos", "hospitalizacion"],
   },
 ];
@@ -378,6 +418,7 @@ export const HOSPITALS: Hospital[] = SEED.map((seed) => ({
   address: seed.address,
   phone: seed.phone,
   status: seed.status ?? "activo",
+  geo: seed.geo,
   features: NO_DIGITAL_TOOLS,
   highlights: HIGHLIGHT_ORDER.filter((key) => seed.services.includes(key)).map(
     (key) => SERVICE_CATALOG[key].name

@@ -18,10 +18,35 @@ ficha publica hoy. **Todo requiere validación**, pero especialmente los diez pu
 
 | Falta | Consecuencia |
 |---|---|
-| Coordenadas por sede | Sin ellas no hay orden por cercanía ni experiencia de Urgencias |
 | Facilidades por sede | La sección "Facilidades para tu estancia" se oculta en vez de inventar tarjetas |
 | URLs de recorridos 360° | El módulo no aparece en ninguna sede |
 | Fotografías por sede | La galería sigue con imágenes genéricas |
+
+---
+
+## Coordenadas: geocodificadas el 15-09-2026
+
+Se geocodificaron las 25 direcciones con Nominatim (OpenStreetMap). Cada resultado se verificó
+contra la dirección guardada, y la coordenada lleva anotado **qué tan fina es**, porque la
+cobertura de OSM en México es despareja:
+
+| Precisión | Sedes | Qué significa |
+|---|---|---|
+| **Exacta** (9) | Aguascalientes Norte y Sur, Celaya, Irapuato, León, Lomas Verdes, Mérida, Puebla, Querétaro | El geocodificador ubicó el número de la dirección |
+| **Calle** (9) | Boca del Río, CDMX Periférico Sur, Ecatepec, Guadalajara, Interlomas, La Viga, Los Cabos, Los Mochis, Santa Fe | Vialidad o zona correcta; puede desviarse cientos de metros |
+| **Localidad** (7) | Cuemanco, Guanajuato, Mexicali, San Miguel de Allende, Tampico, Tijuana, Tlalnepantla | Solo el centro del municipio |
+
+**Qué se puede hacer con esto y qué no.** Sirve para ordenar hospitales por cercanía entre
+ciudades distintas, que es el 90% de los casos. **No** sirve para distinguir cuál de dos sedes
+de la misma ciudad está más cerca cuando ambas son de precisión "localidad", ni para guiar a
+nadie a una puerta: "Cómo llegar" seguirá usando la dirección escrita, no la coordenada.
+
+Las 16 de precisión "calle" y "localidad" son las que conviene que el cliente corrija. Basta
+con que nos manden el pin de Google Maps de cada una.
+
+Un caso a revisar: la coordenada de Querétaro corresponde al número 16 de Privada Ignacio
+Zaragoza, que es la dirección publicada, pero OSM identifica ese punto como "Hospital H+".
+Conviene confirmar la ubicación.
 
 ---
 

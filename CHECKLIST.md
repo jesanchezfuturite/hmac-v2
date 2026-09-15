@@ -64,7 +64,9 @@ decisiones de golpe. Ordenadas por lo que desbloquean.
 
 ### B2 · Geolocalización — una pieza, tres usos  ·  desbloquea 3 decisiones
 
-- [ ] Coordenadas por sede + cálculo de distancia
+- [x] Coordenadas por sede — geocodificadas y cargadas con su nivel de precisión. 16 de 25
+      son aproximadas y el cliente debe corregirlas, pero ya no bloquean el desarrollo.
+- [ ] Cálculo de distancia y permiso de ubicación del navegador
 - [ ] Ordenar el localizador de la Home por cercanía (hoy el título promete "más cercano" y
       el orden es arbitrario)
 - [ ] `/urgencias`: hospital más cercano, opción de cambiar de sede, Llamar y Cómo llegar

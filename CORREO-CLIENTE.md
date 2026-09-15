@@ -60,9 +60,11 @@ en aproximadamente 13 de las 25 sedes; el módulo solo aparece en las que lo ten
 mencionaba también Facebook y TikTok, que no aparecen hoy. Necesitamos confirmar cuáles perfiles
 están vigentes para reflejarlos en el pie de página.
 
-**7. Coordenadas de cada sede.** Latitud y longitud, o simplemente la ubicación exacta en Google
-Maps de cada hospital. Son indispensables para ordenar los hospitales por cercanía y para la
-experiencia de Urgencias, que debe identificar la sede más próxima al usuario.
+**7. Ubicación exacta de 16 sedes.** Obtuvimos las coordenadas de los 25 hospitales a partir de
+sus direcciones, pero solo 9 quedaron con precisión de número exacto. Para las 16 restantes
+—entre ellas Cuemanco, Mexicali, Tampico, Tijuana y Tlalnepantla— la coordenada apunta a la
+calle o al centro del municipio. Basta con que nos compartan el pin de Google Maps de cada una.
+De esa precisión depende que el sitio recomiende correctamente el hospital más cercano.
 
 ---
 
