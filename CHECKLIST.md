@@ -3,32 +3,43 @@
 Vista accionable del documento del 19-08-2026. El detalle decisión por decisión está en
 [REVISION-2026-08.md](REVISION-2026-08.md); esto es el orden en que conviene atacarlo.
 
-**Dónde estamos: 166 decisiones · 113 cerradas · 53 abiertas.**
+**Dónde estamos: 166 decisiones · 112 cerradas · 54 abiertas.**
 
-De esas 53, solo 11 dependen de terceros de verdad. El resto es trabajo que podemos empezar
+De esas 54, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
 hoy.
 
 | Lote | Abiertas | Depende de |
 |---|---|---|
-| A · Decisiones de criterio | 3 | Tu respuesta / el cliente |
-| B · Rutas que faltan | 25 | Nadie: es construir |
-| C · CMS | 14 | Definir cuál y modelarlo |
+| A · Decisiones de criterio | ~~3~~ **0** | Cerradas el 15-09-2026 |
+| B · Rutas que faltan | 26 | Nadie: es construir |
+| C · CMS | 15 | Construirlo: Laravel + Filament |
 | D · Herramientas externas | 6 | CRM, agendamiento, Google |
 | E · Datos del cliente | 4 | Un solo paquete de información |
 | F · Se cierran solas | 3 | Consecuencia de B y C |
+| G · Migración del sitio actual | nuevo | El sitio nuevo reemplaza al del proveedor |
 
 ---
 
-## A · Tres decisiones que nadie más puede tomar
+## A · Decisiones de criterio — cerradas el 15-09-2026
 
-No son código: son criterio. Bloquean poco pero conviene cerrarlas porque cambian lo que se ve.
+- [x] **Especialidades fuera de la Home.** Se respeta la validación de Legal que el propio
+      documento cita. La Home queda con el recorrido exacto del documento.
+- [x] **Reseñas de ejemplo: se mantienen con el aviso de vista previa** hasta que exista la
+      integración con Google. Permite presentar el diseño final sin presentar testimonios como
+      reales.
+- [x] **Cédula profesional: campo opcional**, visible solo si viene cargada. No bloquea
+      publicar a un médico. Va a Legal como consulta *(punto 14 del correo)*.
 
-- [ ] **Especialidades fuera de la Home.** Las quité porque el documento, citando a Legal,
-      prohíbe el módulo. ¿Se queda así o el cliente quiere reponerlas de otra forma?
-- [ ] **Reseñas de ejemplo.** Hoy se ven con un aviso de "vista previa". ¿Se quedan hasta
-      tener Google, o se esconde la sección?
-- [ ] **Cédula profesional en la tarjeta del médico.** Quedó como campo opcional. Confirmar
-      con Legal si debe mostrarse siempre, nunca, o así.
+### Decisiones de proyecto tomadas el mismo día
+
+- [x] **CMS: Laravel + Filament, construido por Futurite.** El proveedor actual trabaja en
+      Laravel, y es el stack que el equipo ya opera. Ver [CMS-ESPECIFICACION.md](CMS-ESPECIFICACION.md).
+- [x] **Alcance v1 del CMS: Hospitales + Directorio Médico**, que es lo que el documento marca
+      como prioritario.
+- [x] **Operación: Futurite en la v1**, MAC asume después. Es transitorio y contradice un
+      requisito del documento: ver la deuda abierta en la especificación.
+- [x] **El sitio nuevo reemplaza al actual** → abre el lote G.
+- [x] **Las 25 sedes: compilamos un borrador y el cliente valida**, en vez de esperar al correo.
 
 ---
 
@@ -88,15 +99,16 @@ resuelven al localizador de la Home porque la página no existe.
 
 ---
 
-## C · CMS (14 decisiones)
+## C · CMS (15 decisiones)
 
-La dependencia más grande, y la que el documento marca como **requisito funcional prioritario**
-en el Directorio Médico: el cliente debe poder dar de alta médicos y cambiar consultorios sin
-pasar por Futurite.
+**Decidido: Laravel + Filament, construido por Futurite. La v1 cubre Hospitales y Directorio
+Médico.** El modelado completo está en [CMS-ESPECIFICACION.md](CMS-ESPECIFICACION.md).
 
-- [ ] Decidir el CMS
-- [ ] Modelar: Hospital · Servicio · relación Servicio↔Hospital · Médico · relación
-      Médico↔Hospital · Promoción · Reconocimiento · Facilidad
+- [x] Decidir el CMS
+- [x] Definir alcance v1 y modelo de datos
+- [ ] Construir entidades v1: Hospital · Médico · relación Médico↔Hospital · catálogos de
+      especialidades y de "Qué atiende"
+- [ ] Modelar v2: Servicio · relación Servicio↔Hospital · Promoción · Reconocimiento · Facilidad
 - [ ] Catálogos maestros: especialidades, subespecialidades, "Qué atiende"
 - [ ] Carga masiva de médicos por Excel/CSV que **actualice** por ID único, no solo cree
 - [ ] Rotación administrable de servicios destacados y promoción destacada
@@ -150,10 +162,24 @@ No requieren tarea propia: son consecuencia de terminar B y C.
 
 ---
 
+## G · Migración del sitio actual (nuevo)
+
+No está en el documento del cliente: aparece porque este sitio **reemplaza** al que opera hoy
+el proveedor. Un reemplazo sin mapa de redirecciones es la forma más común de perder
+posicionamiento de golpe.
+
+- [ ] Inventario de URLs del sitio actual
+- [ ] Mapa de redirecciones 301 hacia la arquitectura nueva
+- [ ] Decidir qué contenido migra, se consolida o se poda
+- [ ] Medición antes y después del cambio
+
+---
+
 ## El camino recomendado
 
-**1. Esta semana, en paralelo:** cerrar las tres decisiones del lote A, mandar el correo del
-lote E y arrancar la definición del CMS. Ninguna de las tres depende de las otras.
+**1. Esta semana, en paralelo:** ~~cerrar las tres decisiones del lote A~~ ✔, ~~mandar el correo
+del lote E~~ (borrador listo en [CORREO-CLIENTE.md](CORREO-CLIENTE.md), falta enviarlo) y
+~~arrancar la definición del CMS~~ ✔ ([CMS-ESPECIFICACION.md](CMS-ESPECIFICACION.md)).
 
 **2. En cuanto lleguen las 25 sedes: `/hospitales`.** Es la ruta de mayor apalancamiento —
 cierra 8 decisiones, arregla tres CTAs que hoy no llevan a ningún lado y completa la
