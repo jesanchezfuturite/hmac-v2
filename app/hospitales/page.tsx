@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { Building2, MapPin, Navigation, Phone, Search } from "lucide-react";
+import { Building2, Crosshair, MapPin, Navigation, Phone, Search } from "lucide-react";
 import {
   ACTIVE_HOSPITALS,
   COVERAGE,
@@ -11,6 +11,8 @@ import {
   matchesLocation,
   type Hospital,
 } from "@/lib/hospitals";
+import { formatDistance, withDistance } from "@/lib/geo";
+import { useUserLocation } from "@/lib/useUserLocation";
 
 /**
  * Directorio de Hospitales — doc 4.1
@@ -55,7 +57,7 @@ function HospitalCard({
   isActive,
   onSelect,
 }: {
-  hospital: Hospital;
+  hospital: Hospital & { distanceKm?: number };
   isActive: boolean;
   onSelect: () => void;
 }) {
@@ -78,6 +80,11 @@ function HospitalCard({
         </h3>
         <p className="text-caption font-medium text-mac-primary mt-1">
           {locationLabel(hospital)}
+          {hospital.distanceKm !== undefined && (
+            <span className="text-gray-400">
+              {" "}· a {formatDistance(hospital.distanceKm)}
+            </span>
+          )}
         </p>
 
         <p className="text-caption font-normal text-gray-500 leading-relaxed mt-3">
@@ -126,11 +133,19 @@ function HospitalCard({
 
 export default function DirectorioHospitales() {
   const [query, setQuery] = useState("");
-  const [activeSlug, setActiveSlug] = useState(ACTIVE_HOSPITALS[0].slug);
+  // Sin selección explícita, la sede activa es la primera del resultado
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const { status, coords, request } = useUserLocation();
 
+  // Con ubicación autorizada el listado se ordena por cercanía; sin ella
+  // conserva el orden alfabético (doc 4.1.4)
   const results = useMemo(
-    () => ACTIVE_HOSPITALS.filter((hospital) => matchesLocation(hospital, query)),
-    [query]
+    () =>
+      withDistance(
+        ACTIVE_HOSPITALS.filter((hospital) => matchesLocation(hospital, query)),
+        coords
+      ),
+    [query, coords]
   );
 
   // El mapa acompaña a la búsqueda: si la sede activa deja de estar entre los
@@ -169,7 +184,21 @@ export default function DirectorioHospitales() {
             />
           </div>
 
-          {/* TODO: ordenar por proximidad cuando haya coordenadas por sede (doc 4.1.2) */}
+          {status !== "granted" && (
+            <button
+              type="button"
+              onClick={request}
+              disabled={status === "requesting"}
+              className="inline-flex items-center gap-2 text-caption font-medium text-mac-primary hover:text-mac-primary-dark transition-colors mt-4 disabled:opacity-60"
+            >
+              <Crosshair className="w-3.5 h-3.5" />
+              {status === "requesting"
+                ? "Buscando tu ubicación…"
+                : status === "denied"
+                  ? "No pudimos acceder a tu ubicación. Intentar de nuevo"
+                  : "Ordenar por cercanía a mi ubicación"}
+            </button>
+          )}
         </div>
       </section>
 
@@ -182,6 +211,7 @@ export default function DirectorioHospitales() {
               <span className="font-medium text-mac-carbon">{results.length}</span>{" "}
               {results.length === 1 ? "hospital" : "hospitales"}
               {query.trim() && " para tu búsqueda"}
+              {status === "granted" && ", ordenados por cercanía"}
             </span>
           </div>
 

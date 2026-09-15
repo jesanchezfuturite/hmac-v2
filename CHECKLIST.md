@@ -3,15 +3,15 @@
 Vista accionable del documento del 19-08-2026. El detalle decisión por decisión está en
 [REVISION-2026-08.md](REVISION-2026-08.md); esto es el orden en que conviene atacarlo.
 
-**Dónde estamos: 166 decisiones · 120 cerradas · 46 abiertas.**
+**Dónde estamos: 166 decisiones · 123 cerradas · 43 abiertas.**
 
-De esas 46, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
+De esas 43, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
 hoy.
 
 | Lote | Abiertas | Depende de |
 |---|---|---|
 | A · Decisiones de criterio | ~~3~~ **0** | Cerradas el 15-09-2026 |
-| B · Rutas que faltan | 18 | Nadie: es construir |
+| B · Rutas que faltan | 15 | Nadie: es construir |
 | C · CMS | 15 | Construirlo: Laravel + Filament |
 | D · Herramientas externas | 6 | CRM, agendamiento, Google |
 | E · Datos del cliente | 4 | Un solo paquete de información |
@@ -62,15 +62,21 @@ decisiones de golpe. Ordenadas por lo que desbloquean.
 > La cobertura se deriva de los datos (24 hospitales en 13 estados) en lugar de publicar
 > "25 hospitales en 18 ciudades", que no cuadra con las sedes cargadas. Ver SEDES-BORRADOR.md.
 
-### B2 · Geolocalización — una pieza, tres usos  ·  desbloquea 3 decisiones
+### B2 · Geolocalización — una pieza, tres usos  ·  **hecha el 15-09-2026**
 
-- [x] Coordenadas por sede — geocodificadas y cargadas con su nivel de precisión. 16 de 25
-      son aproximadas y el cliente debe corregirlas, pero ya no bloquean el desarrollo.
-- [ ] Cálculo de distancia y permiso de ubicación del navegador
-- [ ] Ordenar el localizador de la Home por cercanía (hoy el título promete "más cercano" y
-      el orden es arbitrario)
-- [ ] `/urgencias`: hospital más cercano, opción de cambiar de sede, Llamar y Cómo llegar
-- [ ] Orden por cercanía en el Directorio Médico, respetando el hospital principal
+- [x] Coordenadas por sede — geocodificadas con su nivel de precisión. 16 de 25 son
+      aproximadas y el cliente debe corregirlas, pero no bloquean el desarrollo.
+- [x] Cálculo de distancia y permiso de ubicación del navegador — `lib/geo.ts` y
+      `lib/useUserLocation.ts`, compartidos por las tres pantallas
+- [x] Ordenar el localizador de la Home por cercanía
+- [x] `/urgencias`: hospital más cercano, distancia, Llamar, Cómo llegar y "¿Prefieres otro
+      hospital?" para cambiar de sede
+- [x] Ordenar el directorio de hospitales por cercanía
+- [ ] Orden por cercanía en el Directorio Médico, respetando el hospital principal — el
+      documento lo plantea como opcional; falta llevar las coordenadas a la tarjeta de médico
+
+> Ninguna pantalla se bloquea sin permiso de ubicación: sin él conservan su orden por defecto
+> y todas las acciones siguen disponibles.
 
 > El documento pide explícitamente no construir dos experiencias de localización separadas.
 

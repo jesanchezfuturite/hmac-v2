@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Building2, Navigation, ArrowRight } from "lucide-react";
+import { Building2, Crosshair, Navigation, ArrowRight } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
 import { ACTIVE_HOSPITALS, directionsUrl } from "@/lib/hospitals";
+import { formatDistance, withDistance } from "@/lib/geo";
+import { useUserLocation } from "@/lib/useUserLocation";
 
 /**
  * Encuentra tu Hospital MAC más cercano — doc 3.6
@@ -14,13 +16,16 @@ import { ACTIVE_HOSPITALS, directionsUrl } from "@/lib/hospitals";
  * inicial, no como restricción, y reutilizar esa misma lógica en Urgencias 24/7.
  */
 export default function HospitalMap() {
+  const { status, coords, request } = useUserLocation();
+
   // Solo sedes operativas: una próxima apertura no debe ofrecer "Cómo llegar"
   // ni "Ver hospital" como si ya recibiera pacientes (doc 4.1.6)
-  const branches = ACTIVE_HOSPITALS;
+  // Con ubicación autorizada, la lista se ordena por cercanía
+  const branches = withDistance(ACTIVE_HOSPITALS, coords);
 
-  // TODO: cuando haya geolocalización, la sede activa inicial debe ser la más
-  // cercana al usuario (doc 3.6.2)
-  const [activeSlug, setActiveSlug] = useState(branches[0].slug);
+  // Sin selección explícita, la sede activa es la primera de la lista: la más
+  // cercana cuando hay ubicación, la primera alfabéticamente cuando no
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const activeBranch = branches.find((b) => b.slug === activeSlug) ?? branches[0];
 
   return (
@@ -33,7 +38,23 @@ export default function HospitalMap() {
             <h2 className="text-3xl font-medium tracking-tight text-mac-carbon">
               Encuentra tu Hospital MAC más cercano
             </h2>
-            {/* TODO: ordenar por distancia con la ubicación del usuario (doc 3.6.2) */}
+
+            {/* La ubicación es una recomendación inicial, no una restricción */}
+            {status !== "granted" && (
+              <button
+                type="button"
+                onClick={request}
+                disabled={status === "requesting"}
+                className="inline-flex items-center gap-2 text-caption font-medium text-mac-primary hover:text-mac-primary-dark transition-colors mt-2 disabled:opacity-60"
+              >
+                <Crosshair className="w-3.5 h-3.5" />
+                {status === "requesting"
+                  ? "Buscando tu ubicación…"
+                  : status === "denied"
+                    ? "No pudimos acceder a tu ubicación. Intentar de nuevo"
+                    : "Ordenar por cercanía a mi ubicación"}
+              </button>
+            )}
           </div>
           <div className="shrink-0">
             <CTAButton variant="outline" size="sm" href="/hospitales">
@@ -74,6 +95,11 @@ export default function HospitalMap() {
                       <h4 className="text-body font-medium text-mac-carbon leading-tight truncate">
                         {branch.name}
                       </h4>
+                      {branch.distanceKm !== undefined && (
+                        <p className="text-caption font-medium text-mac-primary mt-0.5">
+                          A {formatDistance(branch.distanceKm)}
+                        </p>
+                      )}
                       <p className="text-caption font-normal text-gray-500 mt-1 leading-snug">
                         {branch.address}
                       </p>

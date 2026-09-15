@@ -84,7 +84,7 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 | 1 | Pre-registro como CTA destacado dentro de la navegación | ◐ Falta conectar con el flujo de pre-registro actual |
 | 2 | "Agendar cita" → "Agenda tu estudio" | ✅ |
 | 2b | El flujo debe aclarar que el agendamiento en línea es de Imagenología | 🔒 Depende de la herramienta en lanzamiento |
-| 3 | "Urgencias 24/7" debe llevar a una experiencia accionable, no informativa | ◐ Ya no marca al 911; hoy va al directorio, donde se puede llamar y obtener indicaciones. Falta `/urgencias` con geolocalización |
+| 3 | "Urgencias 24/7" debe llevar a una experiencia accionable, no informativa | ✅ [/urgencias](app/urgencias/page.tsx): sede más cercana, distancia, llamar, cómo llegar y "¿Prefieres otro hospital?" |
 | 4 | Retirar Blog de la navegación principal | ✅ La página `/blog` sigue existiendo; falta definir su ubicación |
 | 5 | Separar navegación de CTAs permanentes | ✅ |
 
@@ -134,11 +134,11 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 |---|---|---|
 | 6.1 | Mantener estructura listado + mapa | ✅ |
 | 1 | Eliminar la etiqueta "RED NACIONAL" | ✅ |
-| 2 | "Más cercano" debe basarse en geolocalización, como recomendación no como restricción | ⬜ Requiere coordenadas por sede + `navigator.geolocation` |
+| 2 | "Más cercano" debe basarse en geolocalización, como recomendación no como restricción | ✅ Botón para ordenar por cercanía; sin permiso la sección sigue funcionando |
 | 3 | Mantener "Cómo llegar" y que funcione igual en todo el sitio | ✅ Antes era un `alert`; ahora abre indicaciones reales. Lógica compartida en `directionsUrl()` |
 | 4 | "Ver detalles" → landing completa del hospital | ✅ Renombrado a "Ver hospital" |
 | 5 | Mantener "Ver todos los hospitales" | ✅ Lleva al directorio |
-| — | Reutilizar esta misma lógica en Urgencias 24/7 | ⬜ |
+| — | Reutilizar esta misma lógica en Urgencias 24/7 | ✅ Una sola pieza en [lib/geo.ts](lib/geo.ts) y [lib/useUserLocation.ts](lib/useUserLocation.ts) |
 
 ### 3.7 Promociones — [components/home/PromotionsSlider.tsx](components/home/PromotionsSlider.tsx)
 
@@ -305,7 +305,7 @@ propia sección. El menú, el footer, el Hero y el CTA del localizador ya apunta
 | 5 | Relación médico↔hospital muchos a muchos | ✅ `DoctorHospital[]` |
 | 5.1 | Consultorio y teléfono pertenecen a la relación, no al médico | ✅ |
 | 5.2 | Hospital principal se muestra primero | ✅ |
-| 5.3 | Orden por cercanía respetando el hospital principal | ⬜ Requiere geolocalización |
+| 5.3 | Orden por cercanía respetando el hospital principal | ⬜ La pieza de geolocalización ya existe; falta llevarla a la tarjeta de médico. El documento lo plantea como opcional |
 | 5.4 | "Ver más hospitales" sin alargar la tarjeta | ✅ |
 | 5.5 | Campos opcionales: no mostrar vacíos ni sustituir por el teléfono del hospital | ✅ |
 | 6 | 1 especialidad principal + 0/1 subespecialidad | ✅ |
