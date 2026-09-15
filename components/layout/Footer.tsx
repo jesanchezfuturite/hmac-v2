@@ -1,7 +1,23 @@
 import React from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Youtube, Phone } from "lucide-react";
-import { CALL_CENTER, PENDING_ROUTE } from "@/lib/site";
+import { Instagram, Linkedin, Youtube, Phone } from "lucide-react";
+import { CALL_CENTER, EXTERNAL, PENDING_ROUTE, SOCIAL } from "@/lib/site";
+
+/** lucide no trae el logotipo de X: su icono `X` es el aspa de cerrar */
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  Instagram,
+  LinkedIn: Linkedin,
+  X: XIcon,
+  YouTube: Youtube,
+};
 
 /**
  * Footer global — doc 3.11
@@ -28,11 +44,11 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Soy paciente",
     links: [
-      { label: "Pre-registro", href: PENDING_ROUTE },
+      { label: "Pre-registro", href: EXTERNAL.preRegistro },
       { label: "Directorio médico", href: "/directorio-medico" },
-      { label: "Resultados en línea", href: PENDING_ROUTE },
-      { label: "Referencia de pago", href: PENDING_ROUTE },
-      { label: "Agenda tu estudio", href: PENDING_ROUTE },
+      { label: "Resultados en línea", href: EXTERNAL.resultadosEnLinea },
+      { label: "Referencia de pago", href: EXTERNAL.referenciaPago },
+      { label: "Agenda tu estudio", href: EXTERNAL.agendaEstudios },
       { label: "Cotiza tu cirugía", href: PENDING_ROUTE },
       { label: "Aseguradoras", href: PENDING_ROUTE },
       { label: "Encuentra tu hospital", href: "/#hospitales" },
@@ -41,6 +57,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Soy médico",
     links: [
+      { label: "Portal de médicos", href: EXTERNAL.portalMedicos },
       { label: "Credencialización", href: PENDING_ROUTE },
       { label: "Consultorios", href: PENDING_ROUTE },
       { label: "Información para médicos", href: PENDING_ROUTE },
@@ -53,25 +70,19 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "Convenios empresariales", href: PENDING_ROUTE },
       { label: "Check-ups corporativos", href: PENDING_ROUTE },
       { label: "Medicina del trabajo", href: PENDING_ROUTE },
-      { label: "Contacto empresarial", href: PENDING_ROUTE },
+      { label: "Contacto empresarial", href: EXTERNAL.contactoEmpresas },
     ],
   },
 ];
 
-// TODO: agregar TikTok cuando se confirme el perfil vigente (doc 3.11.3)
-const SOCIAL = [
-  { label: "Facebook", icon: Facebook },
-  { label: "Instagram", icon: Instagram },
-  { label: "YouTube", icon: Youtube },
-  { label: "LinkedIn", icon: Linkedin },
-];
-
+// Los perfiles vigentes salen de lib/site.ts. El documento daba por supuestos
+// Facebook y TikTok, que el sitio actual no tiene.
 const INSTITUTIONAL = [
-  "Fundación Hospitales MAC",
-  "Inversionistas",
-  "Código de Ética",
-  "Trabaja con nosotros",
-  "Sala de prensa",
+  { label: "Fundación Hospitales MAC", href: PENDING_ROUTE },
+  { label: "Inversionistas", href: EXTERNAL.inversionistas },
+  { label: "Código de Ética", href: PENDING_ROUTE },
+  { label: "Trabaja con nosotros", href: EXTERNAL.bolsaTrabajo },
+  { label: "Sala de prensa", href: PENDING_ROUTE },
 ];
 
 const LEGAL = ["Aviso de privacidad", "Términos de uso", "Política de cookies"];
@@ -94,16 +105,19 @@ export default function Footer() {
             Atención médica de alta especialidad, cerca de ti.
           </p>
           <div className="flex space-x-3 pt-2">
-            {SOCIAL.map(({ label, icon: Icon }) => (
-              <a
-                key={label}
-                href={PENDING_ROUTE}
-                aria-label={label}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white"
-              >
-                <Icon className="w-4 h-4" />
-              </a>
-            ))}
+            {SOCIAL.map(({ label, href }) => {
+              const Icon = SOCIAL_ICONS[label];
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-white"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              );
+            })}
           </div>
         </div>
 
@@ -147,10 +161,10 @@ export default function Footer() {
 
       {/* Información institucional */}
       <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-6 border-t border-white/10 text-body font-normal text-white/95">
-        {INSTITUTIONAL.map((label, idx) => (
+        {INSTITUTIONAL.map(({ label, href }, idx) => (
           <React.Fragment key={label}>
             {idx > 0 && <span className="text-white/30">·</span>}
-            <Link href={PENDING_ROUTE} className="hover:text-mac-primary-light transition-colors">
+            <Link href={href} className="hover:text-mac-primary-light transition-colors">
               {label}
             </Link>
           </React.Fragment>

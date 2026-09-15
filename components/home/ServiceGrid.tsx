@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { PENDING_ROUTE } from "@/lib/site";
+import { EXTERNAL, PENDING_ROUTE } from "@/lib/site";
 
 /**
  * Soluciones integrales para tu salud — doc 3.4
@@ -43,8 +43,7 @@ const SECONDARY: FeaturedService[] = [
     category: "Servicio diagnóstico",
     desc: "Estudios de diagnóstico por imagen: resonancia magnética, tomografía y ultrasonido.",
     image: "/img/imageneologia.png",
-    // TODO: conectar con el agendamiento en línea de Imagenología (doc 3.4.4)
-    cta: { label: "Agenda tu estudio", href: PENDING_ROUTE },
+    cta: { label: "Agenda tu estudio", href: EXTERNAL.agendaEstudios },
   },
 ];
 

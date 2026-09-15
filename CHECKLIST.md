@@ -170,6 +170,9 @@ posicionamiento de golpe.
 
 - [ ] Inventario de URLs del sitio actual
 - [ ] Mapa de redirecciones 301 hacia la arquitectura nueva
+- [ ] **Sustituir los tres enlaces a `/servicios-old/`** — agenda de estudios, resultados en
+      línea y referencia de pago viven en el sitio que vamos a reemplazar. Están enlazados de
+      forma absoluta en `lib/site.ts` y dejan de funcionar el día del cambio.
 - [ ] Decidir qué contenido migra, se consolida o se poda
 - [ ] Medición antes y después del cambio
 

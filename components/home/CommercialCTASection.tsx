@@ -3,7 +3,7 @@
 import React from "react";
 import { Calculator, CalendarPlus, Phone, MessageSquare } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
-import { CALL_CENTER, PENDING_ROUTE } from "@/lib/site";
+import { CALL_CENTER, EXTERNAL, PENDING_ROUTE } from "@/lib/site";
 
 /**
  * ¿Cómo podemos ayudarte? — doc 3.5
@@ -45,8 +45,7 @@ export default function CommercialCTASection() {
       description:
         "Programa en línea tus estudios de Imagenología disponibles y elige la opción que mejor se adapte a tus necesidades.",
       buttonLabel: "Agendar estudio",
-      // TODO: conectar con la herramienta de agendamiento de Imagenología (doc 3.5.2)
-      href: PENDING_ROUTE,
+      href: EXTERNAL.agendaEstudios,
     },
     {
       id: "call-center",

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { AlertCircle, CalendarPlus, Menu, X } from "lucide-react";
-import { PENDING_ROUTE } from "@/lib/site";
+import { EXTERNAL, PENDING_ROUTE } from "@/lib/site";
 
 /**
  * Barra de navegación principal — doc 3.2
@@ -50,9 +50,8 @@ export default function Header() {
           ))}
 
           {/* Pre-registro: acción de alta intención, destacada dentro de la navegación */}
-          {/* TODO: conectar con el flujo de pre-registro actual (doc 3.2.1) */}
           <Link
-            href={PENDING_ROUTE}
+            href={EXTERNAL.preRegistro}
             className="px-3 py-1.5 rounded-lg border border-mac-primary text-mac-primary font-medium hover:bg-mac-primary-tint transition-colors duration-200"
           >
             Pre-registro
@@ -71,10 +70,10 @@ export default function Header() {
             <span>Urgencias 24/7</span>
           </Link>
 
-          {/* Agenda tu estudio — la herramienta disponible es de Imagenología */}
-          {/* TODO: conectar con el agendamiento en línea de Imagenología (doc 3.2.2) */}
+          {/* Agenda tu estudio — hoy resuelve al agendamiento de Imagenología del
+              sitio actual, que es la única herramienta disponible (doc 3.2.2) */}
           <Link
-            href={PENDING_ROUTE}
+            href={EXTERNAL.agendaEstudios}
             className="hidden sm:flex items-center justify-center space-x-1.5 px-4 py-2.5 bg-mac-primary text-white rounded-lg border border-emerald-800/10 shadow-[0_2px_8px_rgba(26,107,60,0.15)] hover:bg-mac-primary-dark hover:shadow-[0_4px_16px_rgba(26,107,60,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-in-out text-body font-medium"
           >
             <CalendarPlus className="w-4 h-4 shrink-0" />
@@ -106,7 +105,7 @@ export default function Header() {
           ))}
 
           <Link
-            href={PENDING_ROUTE}
+            href={EXTERNAL.preRegistro}
             className="py-2.5 text-mac-primary hover:text-mac-primary-dark transition-colors"
             onClick={() => setIsOpen(false)}
           >
@@ -114,7 +113,7 @@ export default function Header() {
           </Link>
 
           <Link
-            href={PENDING_ROUTE}
+            href={EXTERNAL.agendaEstudios}
             className="sm:hidden flex items-center justify-center space-x-1.5 px-4 py-3 bg-mac-primary text-white rounded-lg font-medium text-center w-full shadow-sm hover:bg-mac-primary-dark active:scale-[0.98] transition-all duration-200 mt-2"
             onClick={() => setIsOpen(false)}
           >

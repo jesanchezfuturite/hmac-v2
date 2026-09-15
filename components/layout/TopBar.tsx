@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Phone } from "lucide-react";
-import { CALL_CENTER, PENDING_ROUTE } from "@/lib/site";
+import { CALL_CENTER, EXTERNAL, PENDING_ROUTE } from "@/lib/site";
 
 /**
  * Franja superior / Utility Bar — doc 3.1
@@ -14,7 +14,7 @@ export default function TopBar() {
   const profileLinks = [
     { label: "Soy paciente", href: PENDING_ROUTE },
     { label: "Soy médico", href: PENDING_ROUTE },
-    { label: "Trabaja con nosotros", href: PENDING_ROUTE },
+    { label: "Trabaja con nosotros", href: EXTERNAL.bolsaTrabajo },
   ];
 
   return (

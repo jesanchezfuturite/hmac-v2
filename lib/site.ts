@@ -27,6 +27,40 @@ export const NETWORK = {
 } as const;
 
 /**
+ * Destinos que ya existen y funcionan en el ecosistema actual de Hospitales MAC.
+ * Compilados desde hospitalesmac.com el 15-09-2026.
+ *
+ * Los tres de `servicios-old` viven dentro del sitio que este proyecto
+ * reemplaza: al migrar hay que sustituirlos por rutas propias. Ver el lote G
+ * de CHECKLIST.md.
+ */
+export const EXTERNAL = {
+  preRegistro: "https://preregistro.hospitalesmac.com/",
+  bolsaTrabajo: "https://bolsatrabajo.hospitalesmac.com/",
+  inversionistas: "https://inversionistas.hospitalesmac.com/",
+  portalMedicos: "https://medportal.hospitalesmac.app/login",
+  agendaEstudios:
+    "https://hospitalesmac.com/servicios-old/imagenologia/servicio/agenda-tus-estudios",
+  resultadosEnLinea:
+    "https://hospitalesmac.com/servicios-old/imagenologia/servicio/resultados-en-linea",
+  referenciaPago:
+    "https://hospitalesmac.com/servicios-old/financieros/servicio/generacion-referencia-bancaria",
+  contactoEmpresas: "mailto:empresas@hospitalesmac.com",
+  contactoMedicos: "mailto:doctores@hospitalesmac.com",
+} as const;
+
+/**
+ * Perfiles vigentes según el sitio actual. El documento mencionaba también
+ * Facebook y TikTok, que hoy no existen: pendiente de confirmar con el cliente.
+ */
+export const SOCIAL = [
+  { label: "Instagram", href: "https://www.instagram.com/hospitalesmac_oficial/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/hospitales-mac" },
+  { label: "X", href: "https://x.com/hospitalesmac" },
+  { label: "YouTube", href: "https://www.youtube.com/user/HospitalesMAC" },
+] as const;
+
+/**
  * Rutas que el documento define pero que todavía no existen en el sitio.
  * Se centralizan aquí para que, al construirlas, no haya que buscar enlaces
  * sueltos por los componentes. Ver REVISION-2026-08.md.
