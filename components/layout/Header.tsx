@@ -17,7 +17,7 @@ const NAV_LINKS = [
   { label: "Somos", href: PENDING_ROUTE },
   { label: "Hospitales", href: "/hospitales" },
   { label: "Directorio médico", href: "/directorio-medico" },
-  { label: "Servicios", href: PENDING_ROUTE },
+  { label: "Servicios", href: "/servicios" },
   { label: "Maternidad", href: "/maternidad" },
 ];
 

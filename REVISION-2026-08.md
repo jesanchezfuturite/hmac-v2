@@ -109,7 +109,7 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 | 2 | 1 servicio destacado + 2 secundarios, rotables | ✅ Estructura lista; la rotación necesita CMS |
 | 3 | Rotación administrable (destacado, prioridad, vigencia, imagen, copy, CTA, URL) | 🔒 CMS |
 | 4 | CTA contextual por servicio, no "Conoce más" | ✅ Maternidad → Agenda tu recorrido · Laboratorio → Conoce nuestros estudios · Imagenología → Agenda tu estudio |
-| 5 | CTA final "Ver todos los servicios" al catálogo | ◐ Existe; falta la ruta `/servicios` |
+| 5 | CTA final "Ver todos los servicios" al catálogo | ✅ |
 | 6 | Distinguir atención / diagnóstico / procedimiento | ✅ Reemplacé los badges de claim ("Tecnología de punta") por la categoría del servicio |
 | 7 | No confundir servicios con especialidades médicas | ✅ Ver decisión 2 del §0 |
 | 8 | Jerarquía por intención y oportunidad, no por peso institucional | 🔒 CMS |
@@ -259,14 +259,14 @@ propia sección. El menú, el footer, el Hero y el CTA del localizador ya apunta
 | # | Decisión | Estado |
 |---|---|---|
 | 1 | Diferenciar Servicios de Especialidades (validación de Legal) | ✅ Ver decisión 2 del §0 |
-| 2 | "Servicios" del menú → directorio nacional de servicios | ⬜ Falta `/servicios` |
-| 3 | Página nacional por servicio, reutilizable | ⬜ Falta `/servicios/[slug]` |
-| 4 | Asociar cada servicio con los hospitales donde está disponible | ◐ Hoy la relación vive en el hospital; falta la entidad Servicio |
+| 2 | "Servicios" del menú → directorio nacional de servicios | ✅ [/servicios](app/servicios/page.tsx), agrupado por naturaleza del servicio |
+| 3 | Página nacional por servicio, reutilizable | ✅ Con "Qué incluye" y las sedes donde está disponible |
+| 4 | Asociar cada servicio con los hospitales donde está disponible | ✅ `hospitalsWithService()` deriva la disponibilidad real |
 | 5 | "Servicios locales" → "Servicios disponibles en este hospital" | ✅ |
 | 6 | Tarjetas locales con resumen + acción, no la descripción nacional completa | ✅ |
-| 7 | No duplicar contenido entre hospital y servicio | ◐ Se respeta; se consolida al crear la entidad Servicio |
+| 7 | No duplicar contenido entre hospital y servicio | ✅ El contenido general vive en `SERVICE_CATALOG`; la sede solo declara disponibilidad |
 | 8-9 | Información y equipamiento específicos por sede | 🔒 CMS |
-| 10 | Conservar el contexto de la sede al entrar a un servicio | ⬜ |
+| 10 | Conservar el contexto de la sede al entrar a un servicio | ✅ `/servicios/[slug]?hospital=` mantiene la sede, con regreso al hospital y contacto directo |
 | 12 | Estructura CMS: Servicio, Hospital y relación Servicio↔Hospital | 🔒 CMS |
 
 ### 15-20 Resto de la página

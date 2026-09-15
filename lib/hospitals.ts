@@ -1,3 +1,5 @@
+import { EXTERNAL } from "./site";
+
 /**
  * Fuente única de información de hospitales — doc 4.1.9 y 5.2.12
  *
@@ -21,10 +23,18 @@ export interface HospitalFeatures {
 }
 
 export interface HospitalService {
+  /** Enlaza con la página nacional del servicio */
+  slug: string;
   name: string;
   /** Resumen local: qué hay disponible aquí, no la descripción nacional del servicio */
   desc: string;
 }
+
+/** Naturaleza del servicio, con las tres categorías del documento (doc 3.4.6) */
+export type ServiceCategory =
+  | "Servicio de atención"
+  | "Servicio diagnóstico"
+  | "Procedimiento / alta especialidad";
 
 export interface HospitalFacility {
   name: string;
@@ -81,40 +91,110 @@ export interface Geo {
  */
 export const SERVICE_CATALOG = {
   urgencias: {
+    slug: "urgencias",
     name: "Urgencias 24/7",
+    category: "Servicio de atención",
     desc: "Atención de urgencias las 24 horas, todos los días del año.",
+    summary:
+      "Atención médica de urgencia las 24 horas del día, todos los días del año, en las sedes que cuentan con el servicio.",
+    includes: [],
+    cta: { label: "Ver la sede más cercana", href: "/urgencias" },
   },
   imagenologia: {
+    slug: "imagenologia",
     name: "Imagenología",
+    category: "Servicio diagnóstico",
     desc: "Estudios de diagnóstico por imagen disponibles en esta sede.",
+    summary:
+      "Estudios de diagnóstico por imagen. Es el servicio para el que está disponible el agendamiento en línea.",
+    includes: [
+      "Mastografía",
+      "Rayos X",
+      "Resonancia magnética",
+      "Tomografía",
+      "Ultrasonido",
+    ],
+    cta: { label: "Agenda tu estudio", href: EXTERNAL.agendaEstudios },
   },
   laboratorio: {
+    slug: "laboratorio-clinico",
     name: "Laboratorio Clínico",
+    category: "Servicio diagnóstico",
     desc: "Análisis clínicos con entrega de resultados en línea.",
-  },
-  quirofanos: {
-    name: "Quirófanos",
-    desc: "Salas de operaciones para procedimientos programados y de urgencia.",
-  },
-  hospitalizacion: {
-    name: "Hospitalización",
-    desc: "Áreas de hospitalización y cuidados intensivos.",
+    summary:
+      "Análisis clínicos con entrega de resultados en línea.",
+    includes: [],
+    cta: { label: "Consulta tus resultados", href: EXTERNAL.resultadosEnLinea },
   },
   medicinaNuclear: {
+    slug: "medicina-nuclear",
     name: "Medicina Nuclear",
+    category: "Servicio diagnóstico",
     desc: "Estudios de medicina nuclear disponibles en esta sede.",
+    summary:
+      "Estudios diagnósticos de medicina nuclear, disponibles en las sedes que cuentan con el servicio.",
+    includes: ["Gammagrafía", "PET-CT"],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
+  },
+  hospitalizacion: {
+    slug: "hospitalizacion",
+    name: "Hospitalización",
+    category: "Servicio de atención",
+    desc: "Áreas de hospitalización y cuidados intensivos.",
+    summary:
+      "Áreas de hospitalización y unidades de cuidados intensivos para adultos y recién nacidos.",
+    includes: [
+      "Hospitalización",
+      "Cunero",
+      "Cuidados intensivos para adultos",
+      "Cuidados intermedios para adultos",
+      "Cuidados intensivos neonatales",
+      "Cuidados intermedios neonatales",
+    ],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
+  },
+  quirofanos: {
+    slug: "quirofanos",
+    name: "Quirófanos",
+    category: "Procedimiento / alta especialidad",
+    desc: "Salas de operaciones para procedimientos programados y de urgencia.",
+    summary:
+      "Salas para procedimientos quirúrgicos programados y de urgencia.",
+    includes: [
+      "Quirófanos",
+      "Sala para procedimientos ambulatorios",
+      "Salas de expulsión",
+      "Salas de hemodinamia",
+    ],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
   },
   trasplantes: {
+    slug: "trasplantes",
     name: "Trasplantes",
+    category: "Procedimiento / alta especialidad",
     desc: "Programa de trasplantes en esta sede.",
+    summary:
+      "Programa de trasplantes, disponible en las sedes autorizadas para realizarlos.",
+    includes: ["Córnea", "Hepático", "Renal"],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
   },
   procuracionOrganos: {
+    slug: "procuracion-de-organos",
     name: "Procuración de Órganos",
+    category: "Procedimiento / alta especialidad",
     desc: "Programa de procuración de órganos.",
+    summary: "Programa de procuración de órganos.",
+    includes: [],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
   },
   bancoSangre: {
+    slug: "banco-de-sangre",
     name: "Banco de Sangre",
+    category: "Procedimiento / alta especialidad",
     desc: "Banco de sangre disponible en esta sede.",
+    summary: "Banco de sangre, disponible en las sedes que cuentan con el servicio.",
+    includes: [],
+    cta: { label: "Encuentra tu hospital", href: "/hospitales" },
   },
 } as const;
 
@@ -423,7 +503,11 @@ export const HOSPITALS: Hospital[] = SEED.map((seed) => ({
   highlights: HIGHLIGHT_ORDER.filter((key) => seed.services.includes(key)).map(
     (key) => SERVICE_CATALOG[key].name
   ),
-  services: seed.services.map((key) => ({ ...SERVICE_CATALOG[key] })),
+  services: seed.services.map((key) => ({
+    slug: SERVICE_CATALOG[key].slug,
+    name: SERVICE_CATALOG[key].name,
+    desc: SERVICE_CATALOG[key].desc,
+  })),
   // Pendiente: las facilidades no están publicadas en el sitio actual. La sección
   // se oculta mientras no haya datos por sede, en vez de inventar tarjetas.
   facilities: [],
@@ -434,6 +518,21 @@ export const HOSPITALS: Hospital[] = SEED.map((seed) => ({
 export const ACTIVE_HOSPITALS = HOSPITALS.filter((h) => h.status === "activo");
 
 export const UPCOMING_HOSPITALS = HOSPITALS.filter((h) => h.status === "proximamente");
+
+export type ServiceDefinition = (typeof SERVICE_CATALOG)[ServiceKey];
+
+export const SERVICES: ServiceDefinition[] = Object.values(SERVICE_CATALOG);
+
+export function getService(slug: string): ServiceDefinition | undefined {
+  return SERVICES.find((service) => service.slug === slug);
+}
+
+/** Sedes operativas donde el servicio está realmente disponible — doc 5.2.4 */
+export function hospitalsWithService(slug: string): Hospital[] {
+  return ACTIVE_HOSPITALS.filter((hospital) =>
+    hospital.services.some((service) => service.slug === slug)
+  );
+}
 
 /** Cobertura real derivada de los datos, para no publicar cifras sin sustento.
  *  TODO: el documento pide "25 hospitales en 18 ciudades"; con las sedes cargadas

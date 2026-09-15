@@ -182,10 +182,9 @@ export default function HospitalBranch({ params }: PageProps) {
                     </p>
                   </div>
 
-                  {/* TODO: llevar a la página nacional del servicio conservando el
-                      contexto de la sede (doc 5.2.10) */}
+                  {/* Conserva el contexto de la sede al abrir el servicio */}
                   <Link
-                    href={PENDING_ROUTE}
+                    href={`/servicios/${service.slug}?hospital=${hospital.slug}`}
                     className="inline-block mt-4 text-caption font-medium text-mac-primary hover:text-mac-primary-dark transition-colors"
                   >
                     Conocer servicio

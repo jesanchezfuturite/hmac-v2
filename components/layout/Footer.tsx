@@ -36,7 +36,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "Somos", href: PENDING_ROUTE },
       { label: "Hospitales", href: "/hospitales" },
       { label: "Directorio médico", href: "/directorio-medico" },
-      { label: "Servicios", href: PENDING_ROUTE },
+      { label: "Servicios", href: "/servicios" },
       { label: "Maternidad", href: "/maternidad" },
       { label: "Promociones", href: PENDING_ROUTE },
     ],

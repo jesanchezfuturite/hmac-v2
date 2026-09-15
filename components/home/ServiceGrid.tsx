@@ -35,8 +35,7 @@ const SECONDARY: FeaturedService[] = [
     category: "Servicio diagnóstico",
     desc: "Análisis clínicos con entrega de resultados en línea.",
     image: "/img/laboratorio.png",
-    // TODO: página nacional del servicio (doc 5.2.3)
-    cta: { label: "Conoce nuestros estudios", href: PENDING_ROUTE },
+    cta: { label: "Conoce nuestros estudios", href: "/servicios/laboratorio-clinico" },
   },
   {
     name: "Imagenología",
@@ -140,10 +139,9 @@ export default function ServiceGrid() {
         </div>
 
         {/* El escaparate de Home no sustituye al catálogo completo — doc 3.4.5 */}
-        {/* TODO: apuntar al directorio nacional de servicios /servicios (doc 5.2.2) */}
         <div className="mt-10 flex justify-center">
           <Link
-            href={PENDING_ROUTE}
+            href="/servicios"
             className="inline-flex items-center justify-center border border-mac-primary text-mac-primary hover:bg-mac-primary-tint font-medium text-body px-6 py-3 rounded-lg transition-colors duration-200 select-none"
           >
             Ver todos los servicios

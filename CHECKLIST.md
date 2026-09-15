@@ -3,15 +3,15 @@
 Vista accionable del documento del 19-08-2026. El detalle decisión por decisión está en
 [REVISION-2026-08.md](REVISION-2026-08.md); esto es el orden en que conviene atacarlo.
 
-**Dónde estamos: 166 decisiones · 123 cerradas · 43 abiertas.**
+**Dónde estamos: 166 decisiones · 129 cerradas · 37 abiertas.**
 
-De esas 43, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
+De esas 37, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
 hoy.
 
 | Lote | Abiertas | Depende de |
 |---|---|---|
 | A · Decisiones de criterio | ~~3~~ **0** | Cerradas el 15-09-2026 |
-| B · Rutas que faltan | 15 | Nadie: es construir |
+| B · Rutas que faltan | 9 | Nadie: es construir |
 | C · CMS | 15 | Construirlo: Laravel + Filament |
 | D · Herramientas externas | 6 | CRM, agendamiento, Google |
 | E · Datos del cliente | 4 | Un solo paquete de información |
@@ -80,13 +80,18 @@ decisiones de golpe. Ordenadas por lo que desbloquean.
 
 > El documento pide explícitamente no construir dos experiencias de localización separadas.
 
-### B3 · `/servicios` y `/servicios/[slug]`  ·  desbloquea 6 decisiones
+### B3 · `/servicios` y `/servicios/[slug]`  ·  **hecho el 15-09-2026**
 
-- [ ] Directorio nacional de servicios (menú "Servicios")
-- [ ] Página nacional por servicio, reutilizable
-- [ ] Entidad Servicio + relación Servicio↔Hospital (hoy la relación vive solo en el hospital)
-- [ ] Conservar el contexto de la sede al entrar a un servicio desde un hospital
-- [ ] Enlazar el CTA "Ver todos los servicios" de la Home
+- [x] Directorio nacional de servicios (menú "Servicios"), agrupado por naturaleza
+- [x] Página nacional por servicio, con "Qué incluye" y las sedes donde está disponible
+- [x] Entidad Servicio + relación Servicio↔Hospital: el contenido general se escribe una vez
+      y cada sede solo declara qué ofrece
+- [x] Conservar el contexto de la sede al entrar a un servicio desde un hospital
+- [x] Enlazar el CTA "Ver todos los servicios" de la Home
+- [ ] **Maternidad, Consulta Externa, Hemodinamia y Hemodiálisis** están en la oferta del
+      documento pero ninguna ficha de sede las publica. Falta saber en qué hospitales están
+      disponibles para incorporarlas al catálogo.
+- [ ] Información local por sede —horario, estudios, equipamiento, requisitos— cuando exista CMS
 
 ### B4 · Hubs y landings  ·  desbloquea 7 decisiones
 
