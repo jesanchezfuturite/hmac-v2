@@ -13,11 +13,9 @@ import { EXTERNAL, PENDING_ROUTE } from "@/lib/site";
  * la revisión de arquitectura de contenidos.
  */
 
-// TODO: "Hospitales" debe apuntar al directorio /hospitales cuando exista (doc 4.1);
-// hoy resuelve al localizador de la Home.
 const NAV_LINKS = [
   { label: "Somos", href: PENDING_ROUTE },
-  { label: "Hospitales", href: "/#hospitales" },
+  { label: "Hospitales", href: "/hospitales" },
   { label: "Directorio médico", href: "/directorio-medico" },
   { label: "Servicios", href: PENDING_ROUTE },
   { label: "Maternidad", href: "/maternidad" },
@@ -61,9 +59,11 @@ export default function Header() {
         {/* CTAs permanentes */}
         <div className="flex items-center space-x-3">
           {/* Urgencias 24/7 — debe llevar a una experiencia orientada a la acción */}
-          {/* TODO: sustituir por /urgencias con hospital más cercano por geolocalización (doc 3.2.3) */}
+          {/* TODO: sustituir por /urgencias con hospital más cercano por
+              geolocalización; hoy lleva al directorio, que permite llamar y
+              obtener indicaciones (doc 3.2.3) */}
           <Link
-            href="/#hospitales"
+            href="/hospitales"
             className="flex items-center justify-center space-x-1.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-mac-danger text-white rounded-lg border border-red-700/20 shadow-[0_2px_8px_rgba(220,38,38,0.2)] hover:shadow-[0_4px_16px_rgba(220,38,38,0.35)] hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] transition-all duration-300 ease-in-out text-[13px] sm:text-body font-medium"
           >
             <AlertCircle className="w-4 h-4 shrink-0" />

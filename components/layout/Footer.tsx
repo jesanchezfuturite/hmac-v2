@@ -34,7 +34,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
     title: "Hospitales MAC",
     links: [
       { label: "Somos", href: PENDING_ROUTE },
-      { label: "Hospitales", href: "/#hospitales" },
+      { label: "Hospitales", href: "/hospitales" },
       { label: "Directorio médico", href: "/directorio-medico" },
       { label: "Servicios", href: PENDING_ROUTE },
       { label: "Maternidad", href: "/maternidad" },
@@ -51,7 +51,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "Agenda tu estudio", href: EXTERNAL.agendaEstudios },
       { label: "Cotiza tu cirugía", href: PENDING_ROUTE },
       { label: "Aseguradoras", href: PENDING_ROUTE },
-      { label: "Encuentra tu hospital", href: "/#hospitales" },
+      { label: "Encuentra tu hospital", href: "/hospitales" },
     ],
   },
   {

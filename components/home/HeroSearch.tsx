@@ -102,7 +102,7 @@ export default function HeroSearch() {
             </Link>
             <span className="text-white/30">|</span>
             <Link
-              href="/#hospitales"
+              href="/hospitales"
               className="font-display inline-flex items-center gap-2 text-white font-medium underline-offset-4 hover:underline hover:text-mac-primary-light transition-colors drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]"
             >
               <Building2 className="w-4 h-4" />

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Building2, Navigation, ArrowRight } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
-import { PENDING_ROUTE } from "@/lib/site";
 import { ACTIVE_HOSPITALS, directionsUrl } from "@/lib/hospitals";
 
 /**
@@ -37,8 +36,7 @@ export default function HospitalMap() {
             {/* TODO: ordenar por distancia con la ubicación del usuario (doc 3.6.2) */}
           </div>
           <div className="shrink-0">
-            {/* TODO: apuntar al directorio completo /hospitales (doc 4.1) */}
-            <CTAButton variant="outline" size="sm" href={PENDING_ROUTE}>
+            <CTAButton variant="outline" size="sm" href="/hospitales">
               Ver todos los hospitales
             </CTAButton>
           </div>
@@ -112,6 +110,7 @@ export default function HospitalMap() {
           {/* Column Right (55%): Real Interactive Google Map */}
           <div className="col-span-12 lg:col-span-7 bg-[#F4F8F0] border border-mac-primary/10 rounded-xl overflow-hidden h-[520px]">
             <iframe
+              key={activeBranch.slug}
               src={`https://maps.google.com/maps?q=${encodeURIComponent(
                 activeBranch.name + " " + activeBranch.address
               )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}

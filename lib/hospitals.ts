@@ -50,6 +50,9 @@ export interface Hospital {
   facilities: HospitalFacility[];
   /** Recorrido 360° de Google Street View; existe en ~13 de 25 sedes */
   tour360Url?: string;
+  /** Fotografía representativa de la sede — doc 4.1.5. Pendiente del cliente:
+   *  mientras no exista, la tarjeta usa un marcador neutro en vez de stock. */
+  image?: string;
   /** Necesarias para ordenar por cercanía y para /urgencias. Pendientes. */
   lat?: number;
   lng?: number;
@@ -390,6 +393,27 @@ export const HOSPITALS: Hospital[] = SEED.map((seed) => ({
 export const ACTIVE_HOSPITALS = HOSPITALS.filter((h) => h.status === "activo");
 
 export const UPCOMING_HOSPITALS = HOSPITALS.filter((h) => h.status === "proximamente");
+
+/** Cobertura real derivada de los datos, para no publicar cifras sin sustento.
+ *  TODO: el documento pide "25 hospitales en 18 ciudades"; con las sedes cargadas
+ *  son 24 operativas en 23 municipios de 13 estados. Pendiente de validación
+ *  del cliente (ver SEDES-BORRADOR.md). */
+export const COVERAGE = {
+  hospitals: ACTIVE_HOSPITALS.length,
+  states: new Set(ACTIVE_HOSPITALS.map((h) => h.state)).size,
+};
+
+/** Búsqueda por ubicación del directorio — doc 4.1.2.
+ *  Solo ubicación: no mezcla servicios, especialidades ni médicos. */
+export function matchesLocation(hospital: Hospital, term: string): boolean {
+  const normalize = (value: string) =>
+    value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const needle = normalize(term.trim());
+  if (!needle) return true;
+  return normalize(
+    `${hospital.name} ${hospital.city} ${hospital.state} ${hospital.address}`
+  ).includes(needle);
+}
 
 export function getHospital(slug: string): Hospital | undefined {
   return HOSPITALS.find((hospital) => hospital.slug === slug);

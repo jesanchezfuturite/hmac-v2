@@ -3,15 +3,15 @@
 Vista accionable del documento del 19-08-2026. El detalle decisión por decisión está en
 [REVISION-2026-08.md](REVISION-2026-08.md); esto es el orden en que conviene atacarlo.
 
-**Dónde estamos: 166 decisiones · 112 cerradas · 54 abiertas.**
+**Dónde estamos: 166 decisiones · 120 cerradas · 46 abiertas.**
 
-De esas 54, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
+De esas 46, solo 10 dependen de terceros de verdad. El resto es trabajo que podemos empezar
 hoy.
 
 | Lote | Abiertas | Depende de |
 |---|---|---|
 | A · Decisiones de criterio | ~~3~~ **0** | Cerradas el 15-09-2026 |
-| B · Rutas que faltan | 26 | Nadie: es construir |
+| B · Rutas que faltan | 18 | Nadie: es construir |
 | C · CMS | 15 | Construirlo: Laravel + Filament |
 | D · Herramientas externas | 6 | CRM, agendamiento, Google |
 | E · Datos del cliente | 4 | Un solo paquete de información |
@@ -48,21 +48,19 @@ hoy.
 Aquí está el grueso. Ninguna depende de terceros: es construir, y cada ruta cierra varias
 decisiones de golpe. Ordenadas por lo que desbloquean.
 
-### B1 · `/hospitales` — el directorio  ·  desbloquea 8 decisiones y 3 CTAs rotos
+### B1 · `/hospitales` — el directorio  ·  **hecho el 15-09-2026**
 
-El hueco más grande. Hoy el menú "Hospitales", "Ver todos los hospitales" y el footer
-resuelven al localizador de la Home porque la página no existe.
+- [x] Encabezado "Encuentra tu Hospital MAC" + cobertura
+- [x] Buscador por código postal, ciudad o estado (sin mezclar servicios ni médicos)
+- [x] Las tarjetas visibles sin obligar a buscar, en orden alfabético
+- [x] Próximas aperturas con distintivo "PRÓXIMAMENTE" y sin acciones de sede operativa
+- [x] Mapa complementario sincronizado con la búsqueda
+- [x] Enlazar el menú, el footer, el Hero y el CTA del localizador a la ruta nueva
+- [ ] **Fotografía por sede** — único campo de la tarjeta que falta. Mientras no haya fotos
+      reales se usa un marcador neutro: el documento prohíbe stock o fotos de otras unidades.
 
-- [ ] Encabezado "Encuentra tu Hospital MAC" + "25 hospitales en 18 ciudades…"
-- [ ] Buscador por código postal, ciudad o estado (sin mezclar servicios ni médicos)
-- [ ] Las 25 tarjetas visibles sin obligar a buscar, en orden alfabético
-- [ ] Tarjeta completa: imagen, nombre, ciudad, dirección, servicios destacados, teléfono
-- [ ] Próximas aperturas con distintivo "PRÓXIMAMENTE" y sin acciones de sede operativa
-- [ ] Mapa complementario sincronizado con la búsqueda
-- [ ] Enlazar el menú, el footer y el CTA del localizador a la ruta nueva
-
-> Necesita las 25 sedes cargadas. Hoy hay 6 en [lib/hospitals.ts](lib/hospitals.ts) con la
-> estructura correcta: agregar las otras 19 es llenar datos, no programar.
+> La cobertura se deriva de los datos (24 hospitales en 13 estados) en lugar de publicar
+> "25 hospitales en 18 ciudades", que no cuadra con las sedes cargadas. Ver SEDES-BORRADOR.md.
 
 ### B2 · Geolocalización — una pieza, tres usos  ·  desbloquea 3 decisiones
 

@@ -84,7 +84,7 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 | 1 | Pre-registro como CTA destacado dentro de la navegación | ◐ Falta conectar con el flujo de pre-registro actual |
 | 2 | "Agendar cita" → "Agenda tu estudio" | ✅ |
 | 2b | El flujo debe aclarar que el agendamiento en línea es de Imagenología | 🔒 Depende de la herramienta en lanzamiento |
-| 3 | "Urgencias 24/7" debe llevar a una experiencia accionable, no informativa | ◐ Ya no marca al 911; hoy va al localizador. Falta `/urgencias` con geolocalización |
+| 3 | "Urgencias 24/7" debe llevar a una experiencia accionable, no informativa | ◐ Ya no marca al 911; hoy va al directorio, donde se puede llamar y obtener indicaciones. Falta `/urgencias` con geolocalización |
 | 4 | Retirar Blog de la navegación principal | ✅ La página `/blog` sigue existiendo; falta definir su ubicación |
 | 5 | Separar navegación de CTAs permanentes | ✅ |
 
@@ -137,7 +137,7 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 | 2 | "Más cercano" debe basarse en geolocalización, como recomendación no como restricción | ⬜ Requiere coordenadas por sede + `navigator.geolocation` |
 | 3 | Mantener "Cómo llegar" y que funcione igual en todo el sitio | ✅ Antes era un `alert`; ahora abre indicaciones reales. Lógica compartida en `directionsUrl()` |
 | 4 | "Ver detalles" → landing completa del hospital | ✅ Renombrado a "Ver hospital" |
-| 5 | Mantener "Ver todos los hospitales" | ◐ Falta la ruta `/hospitales` |
+| 5 | Mantener "Ver todos los hospitales" | ✅ Lleva al directorio |
 | — | Reutilizar esta misma lógica en Urgencias 24/7 | ⬜ |
 
 ### 3.7 Promociones — [components/home/PromotionsSlider.tsx](components/home/PromotionsSlider.tsx)
@@ -222,18 +222,19 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 
 ## 3. Directorio de Hospitales (doc §4)
 
-**La página `/hospitales` no existe.** Hoy el menú y los CTAs resuelven al localizador de la
-Home. Es el hueco más grande que queda abierto.
+**Construida el 15-09-2026** en [app/hospitales/page.tsx](app/hospitales/page.tsx), con las 24
+sedes operativas, búsqueda por ubicación, mapa sincronizado y las próximas aperturas en su
+propia sección. El menú, el footer, el Hero y el CTA del localizador ya apuntan aquí.
 
 | # | Decisión | Estado |
 |---|---|---|
-| 1 | Encabezado "Encuentra tu Hospital MAC" + "25 hospitales en 18 ciudades…" | ⬜ |
-| 2 | Buscador por código postal, ciudad o estado, sin mezclar servicios ni médicos | ⬜ |
-| 3 | Las 25 tarjetas visibles sin obligar a buscar | ⬜ Hoy hay 6 sedes cargadas en [lib/hospitals.ts](lib/hospitals.ts) |
-| 4 | Orden alfabético inicial | ⬜ |
-| 5 | Tarjeta con imagen, nombre, ciudad, dirección, servicios destacados, teléfono, "Ver hospital" y "Cómo llegar" | ◐ El modelo de datos ya tiene los campos (`highlights`, `phone`, `address`) |
-| 6 | Próximas aperturas con identificador "PRÓXIMAMENTE" y sin acciones de sede operativa | ◐ `HospitalStatus` ya contempla `proximamente`; falta la UI |
-| 8 | Mapa complementario sincronizado con la búsqueda | ⬜ |
+| 1 | Encabezado "Encuentra tu Hospital MAC" + cobertura | ✅ La cifra se deriva de los datos: 24 hospitales en 13 estados, hasta que el cliente valide "25 en 18 ciudades" |
+| 2 | Buscador por código postal, ciudad o estado, sin mezclar servicios ni médicos | ✅ |
+| 3 | Las tarjetas visibles sin obligar a buscar | ✅ 24 operativas, más las próximas aperturas en su propia sección |
+| 4 | Orden alfabético inicial | ✅ |
+| 5 | Tarjeta con imagen, nombre, ciudad, dirección, servicios destacados, teléfono, "Ver hospital" y "Cómo llegar" | ◐ Todo salvo la fotografía: sin fotos reales se usa un marcador neutro, no stock |
+| 6 | Próximas aperturas con identificador "PRÓXIMAMENTE" y sin acciones de sede operativa | ✅ Santa Fe, sin "Cómo llegar" ni "Ver hospital" |
+| 8 | Mapa complementario sincronizado con la búsqueda | ✅ |
 | 9 | Una sola fuente de información que alimente Home, directorio, landing y Urgencias | ✅ [lib/hospitals.ts](lib/hospitals.ts); migrar a CMS |
 
 ---
