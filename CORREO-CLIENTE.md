@@ -21,10 +21,26 @@ primeros puntos son los que hoy detienen trabajo.
 
 ## Marketing y Comunicación
 
-**1. Directorio de sedes.** Les haremos llegar un borrador con las 25 sedes —nombre, ciudad,
-dirección, teléfono y servicios destacados— armado a partir de la información pública
-disponible. Solo necesitamos que lo validen y corrijan. Con eso construimos la página de
-Hospitales, que hoy es la principal pieza faltante de la navegación.
+**1. Directorio de sedes — adjunto para validación.** Armamos el borrador de las 25 sedes
+—nombre, ciudad, dirección, teléfono y servicios— a partir de la información publicada hoy en
+hospitalesmac.com. Solo necesitamos que lo validen y corrijan. Con eso construimos la página de
+Hospitales, que es la principal pieza faltante de la navegación.
+
+Al compilarlo surgieron varios puntos que requieren su confirmación:
+
+- **Hospital MAC Santa Fe aparece como próxima apertura.** Lo cargamos con ese estatus y lo
+  dejamos fuera del localizador, para no presentarlo como una sede que ya recibe pacientes.
+- **Lomas Verdes y Tijuana publican únicamente el servicio de Imagenología**, sin urgencias,
+  hospitalización ni quirófanos. ¿Son unidades de imagen y no hospitales? Cambia cómo se
+  presentan y si cuentan dentro de la cifra de 25 hospitales.
+- **Maternidad no aparece en ninguna ficha de sede**, aunque forma parte de la oferta. ¿En qué
+  hospitales está disponible?
+- **Datos por corregir:** Guanajuato publica el código postal 99999 y Mérida una colonia sin
+  nombre. Lomas Verdes y Santa Fe muestran como teléfono el número del Call Center Nacional en
+  lugar de una línea local.
+- **Nombre comercial contra municipio.** Varias sedes llevan el nombre de la zona y no el del
+  municipio: Puebla está en Tlaxcalancingo, Interlomas en Huixquilucan, Los Cabos en San José
+  del Cabo. Necesitamos saber cuál prefieren mostrar al usuario.
 
 **2. Próximas aperturas.** Qué sedes están por abrir y qué información es publicable de cada
 una: ciudad, dirección, fecha estimada y servicios. El documento pide que convivan en el mismo
@@ -40,11 +56,13 @@ en aproximadamente 13 de las 25 sedes; el módulo solo aparece en las que lo ten
 
 **5. Logotipos de empresas con convenio.** Para el bloque de Empresas de la página principal.
 
-**6. Redes sociales.** Incorporamos LinkedIn por su relevancia para los públicos de Empresas,
-Médicos e Institucional. Nos falta confirmar si existe un perfil vigente de TikTok.
+**6. Redes sociales.** El sitio actual enlaza Instagram, LinkedIn, X y YouTube. El documento
+mencionaba también Facebook y TikTok, que no aparecen hoy. Necesitamos confirmar cuáles perfiles
+están vigentes para reflejarlos en el pie de página.
 
-**7. Flujo de pre-registro.** La URL del pre-registro que opera actualmente, para enlazarlo
-desde el menú principal.
+**7. Coordenadas de cada sede.** Latitud y longitud, o simplemente la ubicación exacta en Google
+Maps de cada hospital. Son indispensables para ordenar los hospitales por cercanía y para la
+experiencia de Urgencias, que debe identificar la sede más próxima al usuario.
 
 ---
 
@@ -74,8 +92,14 @@ validación, incluyendo el organismo que otorga cada reconocimiento y a qué sed
 conozcan el programa, considerando que las condiciones de atención están sujetas al convenio
 correspondiente.
 
-**12. Cifras institucionales.** Confirmar 25 hospitales, 18 ciudades y más de 3,000 médicos
-especialistas, que hoy se muestran como indicadores en la página principal.
+**12. Cifras institucionales.** Los indicadores de la página principal dicen 25 hospitales,
+18 ciudades y más de 3,000 médicos especialistas. Al cargar las sedes encontramos dos
+diferencias que conviene resolver antes de publicarlos:
+
+- Si Santa Fe todavía no abre, las sedes en operación son 24.
+- Las 25 sedes se ubican en 24 municipios de 13 estados. La cifra de 18 ciudades solo funciona
+  agrupando la zona metropolitana del Valle de México como una sola, y aun así requiere
+  verificación.
 
 ---
 
@@ -117,7 +141,8 @@ posicionamiento que el dominio ya tiene.
 
 | Lo que recibimos | Lo que podemos construir |
 |---|---|
-| Validación del directorio de sedes | Página de Hospitales, búsqueda por ubicación y localización por cercanía |
+| Validación del directorio de sedes | Página de Hospitales y búsqueda por ubicación |
+| Coordenadas de cada sede | Orden por cercanía y experiencia de Urgencias 24/7 |
 | Fotografías y recorridos 360° | Galerías reales en las 25 landings de sede |
 | Validación de textos | Reincorporación de mensajes comerciales retirados |
 | Accesos de Google | Reseñas reales con rotación entre sedes |

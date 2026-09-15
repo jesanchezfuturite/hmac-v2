@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Building2, Navigation, ArrowRight } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
 import { PENDING_ROUTE } from "@/lib/site";
-import { HOSPITALS, directionsUrl } from "@/lib/hospitals";
+import { ACTIVE_HOSPITALS, directionsUrl } from "@/lib/hospitals";
 
 /**
  * Encuentra tu Hospital MAC más cercano — doc 3.6
@@ -15,10 +15,13 @@ import { HOSPITALS, directionsUrl } from "@/lib/hospitals";
  * inicial, no como restricción, y reutilizar esa misma lógica en Urgencias 24/7.
  */
 export default function HospitalMap() {
-  // Sedes tomadas de la fuente única de información de hospitales
-  const branches = HOSPITALS;
+  // Solo sedes operativas: una próxima apertura no debe ofrecer "Cómo llegar"
+  // ni "Ver hospital" como si ya recibiera pacientes (doc 4.1.6)
+  const branches = ACTIVE_HOSPITALS;
 
-  const [activeSlug, setActiveSlug] = useState("celaya");
+  // TODO: cuando haya geolocalización, la sede activa inicial debe ser la más
+  // cercana al usuario (doc 3.6.2)
+  const [activeSlug, setActiveSlug] = useState(branches[0].slug);
   const activeBranch = branches.find((b) => b.slug === activeSlug) ?? branches[0];
 
   return (

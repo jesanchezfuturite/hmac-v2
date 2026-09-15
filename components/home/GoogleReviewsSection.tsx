@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Star } from "lucide-react";
 import CTAButton from "../shared/CTAButton";
+import { ACTIVE_HOSPITALS } from "@/lib/hospitals";
 
 /**
  * Lo que dicen nuestros pacientes — doc 3.8
@@ -65,14 +66,7 @@ const SAMPLE_REVIEWS: Review[] = [
 ];
 
 // Sedes disponibles para el flujo "¿En qué Hospital MAC recibiste atención?"
-const HOSPITALS = [
-  "Hospital MAC Aguascalientes Norte",
-  "Hospital MAC Celaya",
-  "Hospital MAC Irapuato",
-  "Hospital MAC León",
-  "Hospital MAC Puebla",
-  "Hospital MAC Querétaro",
-];
+const HOSPITALS = ACTIVE_HOSPITALS.map((hospital) => hospital.name);
 
 export default function GoogleReviewsSection() {
   const [selectedHospital, setSelectedHospital] = useState("");
