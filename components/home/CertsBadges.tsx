@@ -3,34 +3,62 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+/**
+ * Calidad que nos respalda — doc 3.10
+ *
+ * Evidencia externa de estándares. El concepto deja de ser "Calidad Certificada"
+ * porque no todos los elementos son certificaciones: hay acreditaciones,
+ * distintivos y reconocimientos, y cada uno debe comunicarse según su alcance
+ * real.
+ *
+ * Reglas aplicadas a las descripciones: sin "máximos estándares", "certificación
+ * obligatoria", "garantiza la calidad" ni "certificado para toda la red". El
+ * texto definitivo de cada reconocimiento debe ser proporcionado y/o validado
+ * por Hospitales MAC.
+ *
+ * TODO: administrar desde CMS (tipo, organismo, vigencia, estatus y hospitales a
+ * los que aplica) para que cada sede muestre automáticamente los suyos en su
+ * landing, con una sola fuente de información (doc 3.10.4 y 3.10.6).
+ */
 export default function CertsBadges() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Contenido pendiente de validación institucional (doc 3.10.3)
   const certs = [
     {
       name: "Consejo de Salubridad General",
-      desc: "Acreditación nacional obligatoria que certifica los máximos estándares de calidad y seguridad en establecimientos de salud en México.",
+      type: "Certificación",
+      issuer: "Consejo de Salubridad General",
+      desc: "Certificación de establecimientos de atención médica dentro del Sistema Nacional de Certificación.",
       img: "/img/certificacion/consejo-salubridad-general.png",
     },
     {
-      name: "ISQua Accreditation",
-      desc: "La Sociedad Internacional para la Calidad en el Cuidado de la Salud valida y avala nuestros procesos médicos bajo estándares globales de excelencia.",
+      name: "ISQua",
+      type: "Acreditación",
+      issuer: "International Society for Quality in Health Care",
+      desc: "Organismo internacional que acredita estándares de calidad aplicados a servicios de salud.",
       img: "/img/certificacion/isqua.png",
     },
     {
       name: "Distintivo H",
-      desc: "Certificación otorgada por la Secretaría de Salud que avala el estricto cumplimiento de higiene en el manejo de alimentos para pacientes.",
+      type: "Distintivo",
+      issuer: "Secretaría de Turismo",
+      desc: "Distintivo al manejo higiénico de alimentos y bebidas.",
       img: "/img/certificacion/distintivo-h-logo-png_seeklogo-250457.png",
     },
     {
       name: "Best Practices Hospital",
-      desc: "Reconocimiento que premia la implementación sistemática de las mejores prácticas globales en quirófanos y terapia intensiva.",
+      type: "Reconocimiento",
+      issuer: "Pendiente de confirmar",
+      desc: "Reconocimiento a la implementación de prácticas clínicas y operativas documentadas.",
       img: "/img/certificacion/best-practices.png",
     },
     {
-      name: "Procesos de Calidad NOM",
-      desc: "Auditorías de calidad basadas en la Norma Oficial Mexicana, garantizando la seguridad en el equipamiento clínico y hospitalario.",
+      name: "Norma Oficial Mexicana",
+      type: "Certificación",
+      issuer: "Secretaría de Salud",
+      desc: "Cumplimiento de las normas oficiales mexicanas aplicables a la operación hospitalaria.",
       img: "/img/certificacion/images.png",
     },
   ];
@@ -74,9 +102,10 @@ export default function CertsBadges() {
         {/* Split Layout Container */}
         <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
           <div className="col-span-12 lg:col-span-6 h-auto lg:h-[400px] flex flex-col justify-center text-center lg:text-left py-6 lg:py-0">
-            <span className="inline-flex bg-[#95c124] px-3 py-1 rounded-full text-[10px] font-medium tracking-widest text-white uppercase select-none self-center lg:self-start mb-4 w-fit">
-              Calidad Certificada
-            </span>
+            <h2 className="font-display text-3xl font-medium tracking-tight text-mac-carbon mb-6">
+              Calidad que nos respalda
+            </h2>
+
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -87,14 +116,26 @@ export default function CertsBadges() {
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className="flex flex-col items-center lg:items-start"
               >
-                {/* Bold typographic title with 400/500 limits */}
+                <span className="text-caption font-medium tracking-wider text-mac-primary uppercase">
+                  {certs[safeIndex].type}
+                </span>
+
                 <h3 className="font-display text-2xl sm:text-3xl font-medium text-mac-carbon tracking-tight mt-2 leading-tight">
                   {certs[safeIndex].name}
                 </h3>
-                
-                {/* Legible description paragraph */}
+
+                <p className="text-caption font-normal text-gray-500 mt-1">
+                  Otorga: {certs[safeIndex].issuer}
+                </p>
+
                 <p className="text-body sm:text-base font-normal text-gray-600 leading-relaxed mt-4 max-w-lg">
                   {certs[safeIndex].desc}
+                </p>
+
+                {/* No todas las certificaciones aplican a todas las sedes */}
+                <p className="text-caption font-normal text-gray-400 mt-4 max-w-lg">
+                  Cada reconocimiento aplica a las sedes que lo tienen vigente.
+                  Consulta el detalle en la página de cada hospital.
                 </p>
               </motion.div>
             </AnimatePresence>

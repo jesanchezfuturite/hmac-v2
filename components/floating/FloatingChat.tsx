@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Loader, AlertCircle } from "lucide-react";
+import { CALL_CENTER } from "@/lib/site";
 
 interface Message {
   id: string;
@@ -32,6 +33,14 @@ export default function FloatingChat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Permite abrir el asistente desde otros puntos del sitio (p. ej. la tarjeta
+  // "Consulta con nuestro asistente IA" de la Home) — doc 3.5.4
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener("mac:open-chat", open);
+    return () => window.removeEventListener("mac:open-chat", open);
+  }, []);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +87,7 @@ export default function FloatingChat() {
         id: (Date.now() + 2).toString(),
         role: "assistant",
         content:
-          "Disculpa, tuve un problema procesando tu pregunta. Por favor, intenta de nuevo o llama al Call Center 800 622 0800.",
+          `Disculpa, tuve un problema procesando tu pregunta. Por favor, intenta de nuevo o llama al Call Center ${CALL_CENTER.display}.`,
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {

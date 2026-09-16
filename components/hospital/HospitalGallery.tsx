@@ -14,6 +14,17 @@ interface HospitalGalleryProps {
   images: GalleryImage[];
 }
 
+/**
+ * Conoce nuestras instalaciones — doc 15
+ *
+ * Responde "¿cómo es este hospital?", a diferencia de Servicios, que responde
+ * "¿qué puedo hacer aquí?". Solo fotografías reales y actuales de esa sede: sin
+ * stock y sin imágenes de otras unidades.
+ *
+ * Los títulos describen el espacio sin sobreprometer ("Habitaciones privadas",
+ * no "Suites privadas con tecnología de punta"). El visor no lleva CTAs
+ * comerciales.
+ */
 export default function HospitalGallery({ hospitalName, images }: HospitalGalleryProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
@@ -30,15 +41,15 @@ export default function HospitalGallery({ hospitalName, images }: HospitalGaller
   };
 
   return (
-    <section className="bg-white py-14 px-4 border-b border-gray-100">
+    <section
+      className="bg-white py-14 px-4 border-b border-gray-100"
+      aria-label={`Instalaciones de ${hospitalName}`}
+    >
       <div className="max-w-7xl mx-auto">
 
         {/* Section Header */}
         <div className="mb-10">
-          <span className="text-caption font-medium tracking-wider text-gray-400 uppercase">
-            Galería
-          </span>
-          <h2 className="text-h2 font-medium text-mac-carbon mt-1">
+          <h2 className="text-h2 font-medium text-mac-carbon">
             Conoce nuestras instalaciones
           </h2>
         </div>
