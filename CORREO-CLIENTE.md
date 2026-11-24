@@ -11,8 +11,10 @@
 Estimado [nombre]:
 
 Ya incorporamos al sitio las definiciones del documento de arquitectura del 19 de agosto. De
-las 166 decisiones que contiene, 113 quedaron aplicadas y verificadas; el resto depende de
-información o validaciones que necesitamos de ustedes.
+las 166 decisiones que contiene, 129 quedaron aplicadas y verificadas, incluidas la nueva
+página de Hospitales con las 25 sedes, la experiencia de Urgencias 24/7 con localización por
+cercanía y el catálogo de Servicios. El resto depende de información o validaciones que
+necesitamos de ustedes.
 
 Las agrupamos por área para facilitar su atención. Cada bloque está ordenado por impacto: los
 primeros puntos son los que hoy detienen trabajo.

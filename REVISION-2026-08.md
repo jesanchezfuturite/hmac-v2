@@ -179,7 +179,7 @@ opcional que solo se muestra si viene cargado. **Confirmar con Legal.**
 | 4 | "Ver todas las aseguradoras" debe llevar a un directorio, no expandir la Home | ◐ Hoy expande. Falta la ruta `/aseguradoras` con búsqueda |
 | 4b | Leyenda legal: convenio ≠ cobertura garantizada | ✅ |
 | 5 | Bloque Empresas con CTA "Conoce tus beneficios" | ✅ Sin logos: no hay material |
-| 6 | Landing de beneficios para empresas | 🔒 Falta `/empresas` + CMS |
+| 6 | Landing de beneficios para empresas | ✅ [/empresas](app/empresas/page.tsx), con el contenido entregado el 17-11-2026 |
 | 7 | No mezclar visualmente ambas experiencias | ✅ |
 | 8 | Consistencia con "Soy paciente" | ⬜ Depende del hub |
 

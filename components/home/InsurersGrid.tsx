@@ -165,10 +165,8 @@ export default function InsurersGrid() {
               </p>
             </div>
 
-            {/* TODO: landing de beneficios para empresas, adaptable por convenio
-                (doc 3.9.6) */}
             <div className="shrink-0">
-              <CTAButton variant="primary" size="lg" href={PENDING_ROUTE}>
+              <CTAButton variant="primary" size="lg" href="/empresas">
                 Conoce tus beneficios
               </CTAButton>
             </div>

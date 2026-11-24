@@ -14,7 +14,7 @@ import { EXTERNAL, PENDING_ROUTE } from "@/lib/site";
  */
 
 const NAV_LINKS = [
-  { label: "Somos", href: PENDING_ROUTE },
+  { label: "Somos", href: "/somos" },
   { label: "Hospitales", href: "/hospitales" },
   { label: "Directorio médico", href: "/directorio-medico" },
   { label: "Servicios", href: "/servicios" },

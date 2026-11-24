@@ -46,6 +46,11 @@ export const EXTERNAL = {
   referenciaPago:
     "https://hospitalesmac.com/servicios-old/financieros/servicio/generacion-referencia-bancaria",
   contactoEmpresas: "mailto:empresas@hospitalesmac.com",
+  /** CTA de la landing de Empresas. El documento de Ana pide "Agendar reunión de
+   *  30 minutos"; mientras no exista herramienta de agenda comercial, resuelve al
+   *  correo de empresas con asunto, para que el equipo sepa de dónde viene. */
+  reunionEmpresas:
+    "mailto:empresas@hospitalesmac.com?subject=Solicitud%20de%20reuni%C3%B3n%20%C2%B7%20Beneficios%20de%20salud%20para%20colaboradores",
   contactoMedicos: "mailto:doctores@hospitalesmac.com",
 } as const;
 
