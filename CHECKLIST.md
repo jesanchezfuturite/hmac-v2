@@ -95,11 +95,14 @@ decisiones de golpe. Ordenadas por lo que desbloquean.
 
 ### B4 · Hubs y landings  ·  desbloquea 7 decisiones
 
-- [ ] `/soy-paciente` — hub de servicios digitales del paciente
-- [ ] `/soy-medico` — hub de recursos para médicos
+- [ ] `/soy-paciente` — hub de servicios digitales del paciente *(el cliente lo marcó "en
+      desarrollo" el 17-11-2026: el contenido sigue sin llegar)*
+- [ ] `/soy-medico` — hub de recursos para médicos *(igual: "en desarrollo")*
 - [ ] `/promociones/[slug]` — landing con vigencia, sedes, condiciones, asistente IA y Call Center
 - [ ] `/aseguradoras` — directorio con búsqueda (hoy el botón expande la lista en la Home)
-- [ ] `/empresas` — beneficios para colaboradores por convenio
+- [x] `/empresas` — beneficios para colaboradores por convenio *(17-11-2026, con el contenido
+      entregado por el cliente; ver REVISION-2026-11.md)*
+- [x] `/somos` — propósito, misión, visión, comportamientos y semblanza del fundador
 
 ### B5 · Pendientes sueltos
 

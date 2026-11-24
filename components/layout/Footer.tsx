@@ -33,7 +33,7 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Hospitales MAC",
     links: [
-      { label: "Somos", href: PENDING_ROUTE },
+      { label: "Somos", href: "/somos" },
       { label: "Hospitales", href: "/hospitales" },
       { label: "Directorio médico", href: "/directorio-medico" },
       { label: "Servicios", href: "/servicios" },
@@ -66,8 +66,8 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Empresas",
     links: [
-      { label: "Beneficios para colaboradores", href: PENDING_ROUTE },
-      { label: "Convenios empresariales", href: PENDING_ROUTE },
+      { label: "Beneficios para colaboradores", href: "/empresas" },
+      { label: "Convenios empresariales", href: "/empresas" },
       { label: "Check-ups corporativos", href: PENDING_ROUTE },
       { label: "Medicina del trabajo", href: PENDING_ROUTE },
       { label: "Contacto empresarial", href: EXTERNAL.contactoEmpresas },
