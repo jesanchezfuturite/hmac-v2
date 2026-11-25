@@ -161,11 +161,9 @@ export default function DirectorioHospitales() {
           <h1 className="text-h1 font-medium text-mac-carbon">
             Encuentra tu Hospital MAC
           </h1>
-          {/* TODO: el documento pide "25 hospitales en 18 ciudades"; la cifra se
-              deriva de las sedes cargadas hasta que el cliente la valide */}
           <p className="text-body font-normal text-gray-500 mt-2 max-w-2xl">
-            {COVERAGE.hospitals} hospitales en {COVERAGE.states} estados para acercarte
-            la atención médica que necesitas.
+            {COVERAGE.hospitals} hospitales en {COVERAGE.cities} ciudades para
+            acercarte la atención médica que necesitas.
           </p>
 
           {/* Buscador de ubicación: no mezcla servicios, especialidades ni médicos */}

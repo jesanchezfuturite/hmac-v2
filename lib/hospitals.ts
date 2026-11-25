@@ -1,4 +1,4 @@
-import { EXTERNAL } from "./site";
+import { EXTERNAL, NETWORK } from "./site";
 
 /**
  * Fuente única de información de hospitales — doc 4.1.9 y 5.2.12
@@ -534,13 +534,18 @@ export function hospitalsWithService(slug: string): Hospital[] {
   );
 }
 
-/** Cobertura real derivada de los datos, para no publicar cifras sin sustento.
- *  TODO: el documento pide "25 hospitales en 18 ciudades"; con las sedes cargadas
- *  son 24 operativas en 23 municipios de 13 estados. Pendiente de validación
- *  del cliente (ver SEDES-BORRADOR.md). */
+/**
+ * Cobertura que se comunica. Viene de la cifra institucional validada, no de
+ * contar las sedes cargadas: el cliente definió el 25-11-2026 que son
+ * 25 hospitales en 19 ciudades, y agrupa áreas metropolitanas que en los datos
+ * figuran como municipios distintos.
+ *
+ * `ACTIVE_HOSPITALS.length` sigue siendo la cuenta real de sedes operativas
+ * (24, porque Santa Fe es próxima apertura) y es la que usa el directorio.
+ */
 export const COVERAGE = {
-  hospitals: ACTIVE_HOSPITALS.length,
-  states: new Set(ACTIVE_HOSPITALS.map((h) => h.state)).size,
+  hospitals: NETWORK.hospitals,
+  cities: NETWORK.cities,
 };
 
 /** Búsqueda por ubicación del directorio — doc 4.1.2.

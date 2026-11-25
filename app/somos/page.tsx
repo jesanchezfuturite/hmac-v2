@@ -133,18 +133,16 @@ export default function Somos() {
               En el principio de su carrera profesional se desarrolló exitosamente
               como empresario textil y en la industria de la construcción.
             </p>
-            {/* El documento del cliente dice "25 hospitales operando en 21
-                ciudades". La cifra se deriva de las sedes cargadas para no
-                contradecir al resto del sitio: Santa Fe aún no abre y los
-                municipios no cuadran con 21. Pendiente de aclarar (ver
-                SEDES-BORRADOR.md). */}
+            {/* Cifra validada por el cliente el 25-11-2026: 25 hospitales en 19
+                ciudades. Se omite "operando" del texto original porque Santa Fe
+                todavía no abre y el directorio la muestra como próxima apertura. */}
             <p>
               En 2008 inició su camino como empresario en el ámbito de la salud,
               edificando una exitosa cadena de hospitales modernos, con tecnología
               de vanguardia, alta profesionalización y atención de 5 estrellas a
               precios accesibles. Actualmente, el Grupo Hospitales MAC cuenta con{" "}
-              {COVERAGE.hospitals} hospitales operando en {COVERAGE.states} estados
-              de la República Mexicana y ha sido reconocido como uno de los mejores
+              {COVERAGE.hospitals} hospitales en {COVERAGE.cities} ciudades de la
+              República Mexicana y ha sido reconocido como uno de los mejores
               según el Ranking de Hospitales Privados de Grupo Expansión.
             </p>
             <p>

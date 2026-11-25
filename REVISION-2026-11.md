@@ -27,20 +27,25 @@ Quedan enlazadas desde el menú principal, el footer y el bloque de Empresas de 
 
 ## Tres observaciones para consultar con Ana
 
-**1. Aparece un tercer conteo de cobertura.** La semblanza dice *"25 hospitales operando en 21
-ciudades"*. El documento de agosto decía 18 ciudades, y de las sedes cargadas salen 24
-operativas en 23 municipios de 13 estados — Santa Fe todavía no abre. Para no contradecir al
-resto del sitio, la página usa la cifra derivada de los datos (`COVERAGE`), igual que el
-directorio de hospitales. **En cuanto el cliente confirme el número bueno, se cambia en un solo
-lugar.**
+**1. ~~Aparece un tercer conteo de cobertura.~~ RESUELTO el 25-11-2026.**
 
-**2. El CTA pedido no tenía funcionalidad detrás.** El documento pide *"Agendar reunión de 30
+Ana definió la cifra oficial: **25 hospitales en 19 ciudades**. Sustituye a las "18 ciudades"
+del documento de agosto y a las "21 ciudades" de la semblanza. Ya está aplicada en el Hero, el
+directorio de hospitales y la semblanza, desde `NETWORK` en [lib/site.ts](lib/site.ts).
+
+Los 25 incluyen Santa Fe, que todavía no abre, así que el directorio sigue mostrando 24 sedes
+operativas más la próxima apertura: 24 + 1 = 25, sin contradicción. Por lo mismo se omitió la
+palabra "operando" del texto original de la semblanza, que afirmaba que las 25 ya operan.
+
+**2. El CTA pedido no tenía funcionalidad detrás.** *(En revisión: el 25-11-2026 Ana respondió
+que lo está viendo con el equipo de empresas, junto con el punto 3.)* El documento pide *"Agendar reunión de 30
 minutos"*, pero no existe herramienta de agenda comercial. Siguiendo la regla del documento de
 arquitectura —no publicar CTAs que el usuario no pueda completar— el botón abre un correo a
 `empresas@hospitalesmac.com` con asunto, para que el equipo comercial sepa de dónde viene.
 Si se contrata una herramienta de agenda, se sustituye en `lib/site.ts`.
 
-**3. Las cifras del caso de estudio necesitan respaldo por escrito.** La landing publica
+**3. Las cifras del caso de estudio necesitan respaldo por escrito.** *(En revisión con el
+equipo de empresas desde el 25-11-2026.)* La landing publica
 $24,502,450 de masa salarial, $245,024 de sobrecuota por prima de riesgo, $312,154 de pérdida
 total estimada, 93% de ahorro y 70% de reducción en tiempos de espera; más los claims de
 "calidad hospitalaria certificada" y "más de 50 especialidades". Vienen del cliente, así que se

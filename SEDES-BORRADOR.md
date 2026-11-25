@@ -56,14 +56,13 @@ Conviene confirmar la ubicación.
 cargamos con estatus `proximamente` y la sacamos del localizador de la Home, porque el
 documento prohíbe que una sede por abrir aparezca con acciones de sede operativa.
 
-**2. Entonces son 24 hospitales operando, no 25.** El Hero, el Directorio y el correo dicen
-"25 hospitales". Si Santa Fe todavía no abre, la cifra incluye una sede no operativa. Hay que
-decidir cómo se comunica.
+**2. ~~Entonces son 24 hospitales operando, no 25.~~ RESUELTO el 25-11-2026.** El cliente
+comunica **25 hospitales**, contando Santa Fe. El sitio nunca afirma que las 25 estén operando:
+el directorio muestra 24 sedes operativas más la próxima apertura.
 
-**3. "18 ciudades" no cuadra con los datos.** Las 25 sedes están en 24 municipios distintos de
-13 estados. El número 18 solo funciona agrupando la zona metropolitana del Valle de México
-como una sola ciudad, y aun así hay que verificarlo. Es una cifra que aparece en el Hero y en
-el encabezado del directorio.
+**3. ~~"18 ciudades" no cuadra con los datos.~~ RESUELTO el 25-11-2026.** La cifra oficial es
+**19 ciudades**. No coincide con los 24 municipios de los datos porque el cliente agrupa áreas
+metropolitanas; es su criterio de comunicación y queda asentado para no volver a abrirlo.
 
 **4. Lomas Verdes y Tijuana publican únicamente Imagenología.** Sin urgencias, hospitalización
 ni quirófanos. ¿Son unidades de imagen y no hospitales? Cambia cómo se presentan y si deben
