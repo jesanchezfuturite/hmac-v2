@@ -17,12 +17,22 @@ export const CALL_CENTER = {
 } as const;
 
 /**
- * Indicadores de confianza del Hero y del Directorio de Hospitales.
- * Cifras pendientes de validación contra la información institucional oficial.
+ * Cobertura institucional. Es la cifra oficial de la red y la única que debe
+ * aparecer en comunicación: Hero, directorio de hospitales y semblanza.
+ *
+ * Validada por Hospitales MAC el 25-11-2026 (Ana Robles, vía Verónica Picón):
+ * **25 hospitales en 19 ciudades**. Sustituye a las "18 ciudades" del documento
+ * de agosto y a las "21 ciudades" de la semblanza del 17-11-2026.
+ *
+ * Los 25 incluyen Santa Fe, que todavía no abre: por eso el directorio muestra
+ * 24 sedes operativas más la próxima apertura, y nunca se afirma que las 25
+ * estén operando.
+ *
+ * La cifra de médicos sigue pendiente de validación.
  */
 export const NETWORK = {
   hospitals: 25,
-  cities: 18,
+  cities: 19,
   doctors: "+3,000",
 } as const;
 

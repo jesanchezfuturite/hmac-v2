@@ -96,14 +96,9 @@ validación, incluyendo el organismo que otorga cada reconocimiento y a qué sed
 conozcan el programa, considerando que las condiciones de atención están sujetas al convenio
 correspondiente.
 
-**12. Cifras institucionales.** Los indicadores de la página principal dicen 25 hospitales,
-18 ciudades y más de 3,000 médicos especialistas. Al cargar las sedes encontramos dos
-diferencias que conviene resolver antes de publicarlos:
-
-- Si Santa Fe todavía no abre, las sedes en operación son 24.
-- Las 25 sedes se ubican en 24 municipios de 13 estados. La cifra de 18 ciudades solo funciona
-  agrupando la zona metropolitana del Valle de México como una sola, y aun así requiere
-  verificación.
+**12. Cifras institucionales.** *Resuelto el 25-11-2026: la cifra oficial es 25 hospitales en
+19 ciudades.* Queda pendiente confirmar la de **más de 3,000 médicos especialistas**, que
+también aparece como indicador en la página principal.
 
 ---
 
